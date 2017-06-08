@@ -1,0 +1,15 @@
+﻿namespace ZeroCode.Repository.Data
+{
+    public enum TransactionalBehavior
+    {
+        /// <summary>
+        /// 如果存在现有事务，则使用它，否则在没有事务的情况下执行命令或查询。
+        /// </summary>
+        DoNotEnsureTransaction,
+
+        /// <summary>
+        /// 如果不存在任何事物，则使用新事务进行操作。
+        /// </summary>
+        EnsureTransaction
+    }
+}

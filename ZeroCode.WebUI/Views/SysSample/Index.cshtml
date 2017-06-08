@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/Frame/EasyUI/default/easyui.css" rel="stylesheet" />
+    <script src="~/Scripts/Frame/jquery-1.10.2.js"></script>
+
+    <script src="~/Scripts/Frame/jquery.easyui-1.4.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#List').datagrid({
+                url: '/SysSample/GetSysSample',
+                width: $(window).width() - 10,
+                methord: 'post',
+                height: $(window).height() - 35,
+                fitColumns: true,
+                sortName: 'Id',
+                sortOrder: 'desc',
+                idField: 'Id',
+                pageSize: 15,
+                pageList: [15, 20, 30, 40, 50],
+                pagination: true,
+                striped: true, //奇偶行是否区分
+                singleSelect: true,//单选模式
+                rownumbers: true,//行号
+                columns: [[
+                    { field: 'Id', title: 'ID', width: 80 },
+                    { field: 'Name', title: '名称', width: 120 },
+                    { field: 'Age', title: '年龄', width: 80, align: 'right' },
+                    { field: 'Bir', title: '生日', width: 80, align: 'right' },
+                    { field: 'Photo', title: '照片', width: 250 },
+                    { field: 'Note', title: '说明', width: 60, align: 'center' },
+                    { field: 'CreateTime', title: '创建时间', width: 60, align: 'center' }
+                ]]
+            });
+        });
+    </script>
+</head>
+<body>
+    <div> 
+        <table id="List">
+             
+        </table>
+    </div>
+</body>
+</html>
