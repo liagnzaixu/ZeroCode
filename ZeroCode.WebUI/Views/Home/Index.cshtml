@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/Frame/EasyUI/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/Frame/EasyUI/default/layout.css" rel="stylesheet" />
+    <link href="~/Content/Frame/Css/frame.css" rel="stylesheet" />
+    
+    <script src="~/Scripts/Frame/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/Frame/jquery.easyui.min.js"></script>
+    <script type="text/javascript">
+        $(document).on('contextmenu', '.tabs li', function (e) {
+            e.preventDefault();
+            $('#tabs_menu').menu('show', {
+                left: e.pageX - 5,
+                top: e.pageY - 5
+            });
+        });
+    </script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north'" class="frame-layout__north">
+        <span>ZodeCode项目（ASP.NET MVC5+三层架构）</span>
+    </div>
+    <div data-options="region:'west',split:true,title:'菜单'" style="width:150px;padding:10px;">
+        <div id="menu_tree">
+            <div class="panel-loading">加载中...</div>
+        </div>
+    </div>
+    <div data-options="region:'center',border:false">
+        <div class="easyui-tabs" data-options="fit:true">
+            <div title="我的桌面" data-options="closable:true" style="padding:10px">
+                <iframe scrolling="auto" frameborder="0" src="@Url.Content("~/SysSample/Index")" style="width: 100%; height: 100%;"></iframe>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'south',border:true" class="frame-layout__south">
+        <span class="frame-copyright">Copyright © AriesXu</span>
+    </div>
+    <div id="tabs_menu" class="easyui-menu" style="width:120px;">
+        <div id="tabs_menu_reload" data-options="iconCls:'icon-reload'">刷新</div>
+        <div id="tabs_menu_open">在新的窗体打开</div>
+        <div id="tabs_menu_closeall" data-options="iconCls:'icon-save'">关闭所有</div>
+        <div id="tabs_menu_closeother" data-options="iconCls:'icon-print',disabled:true">关闭其他标签页</div>
+        <div class="menu-sep"></div>
+        <div id="tabs_menu_closeleft">关闭左边</div>
+        <div id="tabs_menu_closeright">关闭右边</div>
+        <div id="tabs_menu_closethis" data-options="iconCls:'icon-remove'">关闭</div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+

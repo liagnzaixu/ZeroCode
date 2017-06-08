@@ -1,0 +1,19 @@
+﻿.frame-layout__north {
+    height: 60px;
+    padding: 10px;
+}
+.frame-layout__north span{
+    font-size:18px;
+}
+.frame-layout__south {
+    height: 50px;
+    padding: 10px;
+    text-align: center;
+}
+.frame-copyright {
+    text-align: center;
+}
+.frame-not-found{
+    height:800px;
+    background:url(../Imges/404.jpg) no-repeat center;
+}
