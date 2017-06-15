@@ -9,9 +9,6 @@ using ZeroCode.CommonData;
 using ZeroCode.CommonData.Filter;
 using ZeroCode.Service.Sys;
 using ZeroCode.Model.Sys;
-using ZeroCode.Components.Models;
-using ZeroCode.Components;
-using ZeroCode.HtmlHelpers;
 using ZeroCode.Web.MVC.UI;
 using ZeroCode.Web.MVC.Extensions;
 
@@ -34,8 +31,8 @@ namespace ZeroCode.WebUI.Controllers
         public JsonResult GetSysSample()
         {
             GridRequest request = Request.ToGridRequest();
-            var page= _sysService.GetSysToPage(request);
-            return Json(page.ToGridData(), JsonRequestBehavior.AllowGet);
+            PageResult<SysSampleOutputDto> page= _sysService.GetSysToPage(request);
+            return Json( page.ToGridData(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult TestError()
@@ -47,13 +44,6 @@ namespace ZeroCode.WebUI.Controllers
         {
             var methodInfo = typeof (string).GetMethod("StartsWith");
             return View();
-        }
-
-
-        public ActionResult TestComponents()
-        {
-            var d = new Components.Demo();
-            return View(d.GetSomething());
         }
     }
 }

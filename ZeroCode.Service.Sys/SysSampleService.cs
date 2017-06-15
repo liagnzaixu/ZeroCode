@@ -38,9 +38,12 @@ namespace ZeroCode.Service.Sys
                 m => new SysSampleOutputDto
                 {
                     Id=m.Id,
+                    Name=m.Name,
+                    Note=m.Note,
+                    Photo=m.Photo,
                     Age=m.Age.ToString(),
-                 Bir=(DateTime)m.Bir,
-                 CreateTime= (DateTime)m.CreateTime,
+                    Bir=m.Bir.ToString(),
+                    CreateTime= m.CreateTime.ToString(),
                 });
         }
 

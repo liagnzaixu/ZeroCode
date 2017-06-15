@@ -7,12 +7,14 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <link href="~/Content/Frame/EasyUI/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/Frame/EasyUI/default/easyui.css" rel="stylesheet"/>
+    <link href="~/Content/Frame/EasyUI/default/window.css" rel="stylesheet" />
+    <link href="~/Content/Frame/EasyUI/icon.css" rel="stylesheet" />
     <script src="~/Scripts/Frame/jquery-1.10.2.js"></script>
-
+    <script src="~/Scripts/Frame/jquery-zc-extensions.js"></script>
     <script src="~/Scripts/Frame/jquery.easyui-1.4.1.js"></script>
     <script type="text/javascript">
-        $(function () {
+        $(function() {
             $('#List').datagrid({
                 url: '/SysSample/GetSysSample',
                 width: $(window).width() - 10,
@@ -26,26 +28,54 @@
                 pageList: [15, 20, 30, 40, 50],
                 pagination: true,
                 striped: true, //奇偶行是否区分
-                singleSelect: true,//单选模式
-                rownumbers: true,//行号
-                columns: [[
-                    { field: 'Id', title: 'ID', width: 80 },
-                    { field: 'Name', title: '名称', width: 120 },
-                    { field: 'Age', title: '年龄', width: 80, align: 'right' },
-                    { field: 'Bir', title: '生日', width: 80, align: 'right' },
-                    { field: 'Photo', title: '照片', width: 250 },
-                    { field: 'Note', title: '说明', width: 60, align: 'center' },
-                    { field: 'CreateTime', title: '创建时间', width: 60, align: 'center' }
-                ]]
+                singleSelect: true, //单选模式
+                rownumbers: true, //行号
+                loadFilter: $.zc.easyui.loadFilter,
+                columns: [
+                    [
+                        { field: 'Id', title: 'ID', width: 80 },
+                        { field: 'Name', title: '名称', width: 120 },
+                        { field: 'Age', title: '年龄', width: 80, align: 'right' },
+                        { field: 'Bir', title: '生日', width: 80, align: 'right' },
+                        { field: 'Photo', title: '照片', width: 250 },
+                        { field: 'Note', title: '说明', width: 60, align: 'center' },
+                        { field: 'CreateTime', title: '创建时间', width: 60, align: 'center' }
+                    ]
+                ]
             });
         });
+
+        $(function() {
+            $("#btn-add").click(function () {
+                $("#modal-window").html("<iframe width='100%' height='98%' scrolling='no' frameborder='0'' src='/SysSample/Create'></iframe>");
+                $("#modal-window").window({
+                    title: "新增",
+                    width: 700,
+                    height: 400,
+                    iconCls: "icon-add"
+                }).window("open");
+            });
+        });
+
+        function doSearch() { alert("search")}
     </script>
 </head>
 <body>
-    <div> 
-        <table id="List">
-             
-        </table>
+<div>
+    <div id="modal-window" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false">
+        
     </div>
+    <div class="easyui-panel" style="padding: 5px;">
+        <input class="easyui-searchbox" data-options="prompt:'输入关键字搜索',searcher:doSearch" style="width: 300px"></input>
+        <a id="btn-add" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">新增</a>
+        <a id="btn-edit" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'">编辑</a>
+        <a id="remove" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'">删除</a>
+        <a id="detail" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-more'">详情</a>
+        <a id="export" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-export'">导出</a>
+        <a id="reload" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'">刷新</a>
+
+    </div>
+    <table id="List"></table>
+</div>
 </body>
 </html>

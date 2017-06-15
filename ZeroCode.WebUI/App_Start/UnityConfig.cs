@@ -5,10 +5,6 @@ using Unity.Mvc5;
 using Microsoft.Practices.Unity.Configuration;
 using System.Configuration;
 using System.Web;
-using ZeroCode.Repository.Data;
-using ZeroCode.Service.Sys;
-
-
 
 namespace ZeroCode.WebUI
 {
@@ -33,11 +29,11 @@ namespace ZeroCode.WebUI
 
             //使用代码注册运行正常
             //container.RegisterType<IBaseRepository<SysSample, string>, BaseRepository<SysSample, string>>("SysRep1");
-            var te = typeof(IBaseRepository<SysSample, string>);
-            string str = te.AssemblyQualifiedName;
+            //var te = typeof(IBaseRepository<SysSample, string>);
+            //string str = te.AssemblyQualifiedName;
 
-            var te2 = typeof(BaseRepository<SysSample, string>);
-            string str2 = te2.AssemblyQualifiedName;
+            //var te2 = typeof(BaseRepository<SysSample, string>);
+            //string str2 = te2.AssemblyQualifiedName;
 
             container.LoadConfiguration(unitySection, "defaultContainer");
             return container;

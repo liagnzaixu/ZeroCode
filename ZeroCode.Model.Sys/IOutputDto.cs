@@ -8,9 +8,9 @@ namespace ZeroCode.Model.Sys
         public string Id { get; set; }
         public string Name { get; set; }
         public string Age { get; set; }
-        public DateTime Bir { get; set; }
+        public string Bir { get; set; }
         public string Photo { get; set; }
         public string Note { get; set; }
-        public DateTime CreateTime { get; set; }
+        public string CreateTime { get; set; }
     }
 }

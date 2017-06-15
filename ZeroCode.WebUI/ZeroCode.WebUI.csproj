@@ -581,6 +581,7 @@
     <Content Include="Scripts\Frame\modernizr-2.6.2.js" />
     <Content Include="Scripts\Frame\respond.js" />
     <Content Include="Scripts\Frame\respond.min.js" />
+    <Content Include="Scripts\Frame\jquery-zc-extensions.js" />
     <Content Include="Scripts\Frame\_references.js" />
     <Content Include="Scripts\Module\Home\account.index.js" />
     <Content Include="Scripts\Module\Home\zero.main.js" />
@@ -629,21 +630,9 @@
       <Project>{f30a8995-cc2b-4527-a0f3-9e58f9f7ee13}</Project>
       <Name>ZeroCode.CommonData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ZeroCode.Components\ZeroCode.Components.csproj">
-      <Project>{51030c3b-300f-444e-a66f-d7eb9838ac56}</Project>
-      <Name>ZeroCode.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZeroCode.HtmlHelpers\ZeroCode.HtmlHelpers.csproj">
-      <Project>{c2db2cc1-348e-4170-887b-4734aab80325}</Project>
-      <Name>ZeroCode.HtmlHelpers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZeroCode.Model.Sys\ZeroCode.Model.Sys.csproj">
       <Project>{fb1ce9f6-3a7f-4baa-83eb-31c6e79d432c}</Project>
       <Name>ZeroCode.Model.Sys</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZeroCode.Repository.Data\ZeroCode.Repository.Data.csproj">
-      <Project>{ce2bbbf6-9856-4de1-9131-e39151d5450f}</Project>
-      <Name>ZeroCode.Repository.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZeroCode.Service.Account\ZeroCode.Service.Account.csproj">
       <Project>{b6e972f0-52fc-4900-a7ef-521036dfe70d}</Project>
