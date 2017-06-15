@@ -11,6 +11,8 @@
     <AssemblyName>ZeroCode.AutoMapper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +56,10 @@
     <Folder Include="Profiles\UserMgr\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ZeroCode.CommonData\ZeroCode.CommonData.csproj">
+      <Project>{f30a8995-cc2b-4527-a0f3-9e58f9f7ee13}</Project>
+      <Name>ZeroCode.CommonData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZeroCode.Model.Account\ZeroCode.Model.Account.csproj">
       <Project>{ca32810a-b6c5-4a13-a7b0-41d1369391ca}</Project>
       <Name>ZeroCode.Model.Account</Name>
@@ -67,7 +73,12 @@
       <Name>ZeroCode.Repository.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
