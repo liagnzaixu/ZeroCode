@@ -31,7 +31,6 @@ namespace ZeroCode.Service.Sys
 
         public PageResult<SysSampleOutputDto> GetSysToPage(GridRequest request)
         {
-            //List<SysSample> result = SysRep.Entities.ToList();
             request.AddDefaultSortCondition(new SortCondition("CreatedTime", ListSortDirection.Descending));
             Expression<Func<SysSample, bool>> predicate = FilterHelper.GetExpression<SysSample>(request.FilterGroup);
             return SysRep.Entities.ToPage(predicate, request.PageCondition, 
