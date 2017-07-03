@@ -6,12 +6,12 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <link href="~/Content/Frame/EasyUI/default/easyui.css" rel="stylesheet" />
-    <link href="~/Content/Frame/EasyUI/default/layout.css" rel="stylesheet" />
-    <link href="~/Content/Frame/Css/frame.css" rel="stylesheet" />
+    <link href="~/Content/EasyUI/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/EasyUI/default/layout.css" rel="stylesheet" />
+    <link href="~/Content/Default/Css/frame.css" rel="stylesheet" />
     
-    <script src="~/Scripts/Frame/jquery-1.10.2.js"></script>
-    <script src="~/Scripts/Frame/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
     <script type="text/javascript">
         $(document).on('contextmenu', '.tabs li', function (e) {
             e.preventDefault();
@@ -33,8 +33,8 @@
     </div>
     <div data-options="region:'center',border:false">
         <div class="easyui-tabs" data-options="fit:true">
-            <div title="我的桌面" data-options="closable:true" style="padding:10px">
-                <iframe scrolling="auto" frameborder="0" src="@Url.Content("~/SysSample/Index")" style="width: 100%; height: 100%;"></iframe>
+            <div title="我的桌面" data-options="closable:true">
+                <iframe scrolling="auto" frameborder="0" src='@Url.Content("~/SysSample/Index")' style="width: 100%; height: 98%;"></iframe>
             </div>
         </div>
     </div>

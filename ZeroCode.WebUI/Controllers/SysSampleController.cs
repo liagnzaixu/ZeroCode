@@ -16,7 +16,8 @@ namespace ZeroCode.WebUI.Controllers
 {
     public class SysSampleController : Controller
     {
-        private ISysSampleService _sysService;
+        private readonly ISysSampleService _sysService;
+
         public SysSampleController(ISysSampleService sysService)
         {
             this._sysService = sysService;

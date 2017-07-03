@@ -1,4 +1,7 @@
-﻿.frame-layout__north {
+﻿body {
+    margin:0;
+}
+.frame-layout__north {
     height: 60px;
     padding: 10px;
 }
