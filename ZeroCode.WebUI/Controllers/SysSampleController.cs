@@ -39,17 +39,41 @@ namespace ZeroCode.WebUI.Controllers
 
         public ActionResult Create()
         {
-           var inputModel = new SysSampleDto()
-            {
-                Id = "222222",
-                Age = "15",
-                CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                Bir = "1991-04-06 08:08:08",
-                Name = "Aries",
-                Note = "I'm liagnzaixu",
-                Photo = "http://www.baidu.com"
-            };
-            OperationResult result = _sysService.Create(inputModel);
+
+           List<SysSampleDto> list = new List<SysSampleDto>() 
+           { 
+                new SysSampleDto()
+                {
+                    Id = "222225",
+                    Age = "15",
+                    CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+                    Bir = "1991-04-06 08:08:08",
+                    Name = "Aries",
+                    Note = "I'm liagnzaixu",
+                    Photo = "http://www.baidu.com"
+                },
+                new SysSampleDto()
+                {
+                    Id = "222223",
+                    Age = "17",
+                    CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+                    Bir = "1991-04-06 08:08:08",
+                    Name = "Aries",
+                    Note = "I'm liagnzaixu",
+                    Photo = "http://www.baidu.com"
+                },
+                new SysSampleDto()
+                {
+                    Id = "222224",
+                    Age = "18",
+                    CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+                    Bir = "1991-04-06 08:08:08",
+                    Name = "Aries",
+                    Note = "I'm liagnzaixu",
+                    Photo = "http://www.baidu.com"
+                },
+           };
+           OperationResult result = _sysService.Create(list);
             return View();
         }
 
@@ -68,6 +92,28 @@ namespace ZeroCode.WebUI.Controllers
             };
             OperationResult result= _sysService.Create(inputModel);
             return Json(result.ToAjaxResult());
+        }
+
+        [HttpPost]
+        public JsonResult Delete(string id)
+        {
+            return Json("");
+        }
+
+        public ActionResult Detail(string id)
+        {
+            return View();
+        }
+
+        public ActionResult Edit(string id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult Edit(SysSampleDto inputModel)
+        {
+            return Json("");
         }
 
         public ActionResult TestError()

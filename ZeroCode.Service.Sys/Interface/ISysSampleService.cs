@@ -12,5 +12,8 @@ namespace ZeroCode.Service.Sys
         PageResult<SysSampleDto> GetSysToPage(GridRequest request);
 
         OperationResult Create(SysSampleDto model);
+
+        OperationResult Create(List<SysSampleDto> list);
     }
+
 }

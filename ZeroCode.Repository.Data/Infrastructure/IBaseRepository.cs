@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ZeroCode.CommonData;
 
 namespace ZeroCode.Repository.Data
 {
@@ -25,7 +26,7 @@ namespace ZeroCode.Repository.Data
 
         int Insert(IEnumerable<TEntity> entities);
 
-        //OperationResult Insert<TInputDto>(ICollection<TInputDto> dtos, Action<TInputDto> checkAction = null, Func<TInputDto, TEntity, TEntity> convertFunc = null) where TInputDto : IInputDto<TKey>;
+        OperationResult Insert<TInputDto>(ICollection<TInputDto> dtos, Action<TInputDto> checkAction = null, Func<TInputDto, TEntity, TEntity> convertFunc = null) where TInputDto : IInputDto<TKey>;
 
         int Recycle(TEntity entity);
 
@@ -51,7 +52,7 @@ namespace ZeroCode.Repository.Data
 
         int Delete(IEnumerable<TEntity> entities);
 
-        //OperationResult Delete(ICollection<TKey> ids, Action<TEntity> checkAction = null, Func<TEntity, TEntity> deleteFunc = null);
+        OperationResult Delete(ICollection<TKey> ids, Action<TEntity> checkAction = null, Func<TEntity, TEntity> deleteFunc = null);
 
         int DeleteDirect(TKey key);
 
@@ -59,7 +60,7 @@ namespace ZeroCode.Repository.Data
 
         int Update(TEntity entity);
 
-        //OperationResult Update<TEditDto>(ICollection<TEditDto> dtos, Action<TEditDto, TEntity> checkAction = null, Func<TEditDto, TEntity, TEntity> convertFunc = null) where TEditDto : IInputDto<TKey>;
+        OperationResult Update<TEditDto>(ICollection<TEditDto> dtos, Action<TEditDto, TEntity> checkAction = null, Func<TEditDto, TEntity, TEntity> convertFunc = null) where TEditDto : IInputDto<TKey>;
 
         int UpdateDirect(TKey key, Expression<Func<TEntity, TEntity>> updateExpression);
 

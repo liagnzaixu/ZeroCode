@@ -52,6 +52,11 @@ namespace ZeroCode.Service.Sys
             return new OperationResult(execResult == 1 ? OperationResultType.Success:OperationResultType.NoChanged);
         }
 
+        public OperationResult Create(List<SysSampleDto> list)
+        {
+            return SysRep.Insert(list);
+        }
+
 
         public string GetS()
         {
