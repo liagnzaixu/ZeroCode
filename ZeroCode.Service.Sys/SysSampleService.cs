@@ -23,18 +23,18 @@ namespace ZeroCode.Service.Sys
             SysRep = sysRep;
         }
 
-        public List<SysSampleOutputDto> GetAllSys()
+        public List<SysSampleDto> GetAllSys()
         {
             List<SysSample> result = SysRep.Entities.ToList();
-            return Mapper.Map<List<SysSampleOutputDto>>(result);
+            return Mapper.Map<List<SysSampleDto>>(result);
         }
 
-        public PageResult<SysSampleOutputDto> GetSysToPage(GridRequest request)
+        public PageResult<SysSampleDto> GetSysToPage(GridRequest request)
         {
             request.AddDefaultSortCondition(new SortCondition("CreatedTime", ListSortDirection.Descending));
             Expression<Func<SysSample, bool>> predicate = FilterHelper.GetExpression<SysSample>(request.FilterGroup);
             return SysRep.Entities.ToPage(predicate, request.PageCondition, 
-                m => new SysSampleOutputDto
+                m => new SysSampleDto
                 {
                     Id=m.Id,
                     Name=m.Name,
@@ -45,6 +45,13 @@ namespace ZeroCode.Service.Sys
                     CreateTime= m.CreateTime.ToString(),
                 });
         }
+
+        public OperationResult Create(SysSampleDto model)
+        {
+            int execResult= SysRep.Insert(Mapper.Map<SysSample>(model));
+            return new OperationResult(execResult == 1 ? OperationResultType.Success:OperationResultType.NoChanged);
+        }
+
 
         public string GetS()
         {

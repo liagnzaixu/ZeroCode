@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -32,8 +33,41 @@ namespace ZeroCode.WebUI.Controllers
         public JsonResult GetSysSample()
         {
             GridRequest request = Request.ToGridRequest();
-            PageResult<SysSampleOutputDto> page= _sysService.GetSysToPage(request);
+            PageResult<SysSampleDto> page= _sysService.GetSysToPage(request);
             return Json( page.ToGridData(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Create()
+        {
+           var inputModel = new SysSampleDto()
+            {
+                Id = "222222",
+                Age = "15",
+                CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+                Bir = "1991-04-06 08:08:08",
+                Name = "Aries",
+                Note = "I'm liagnzaixu",
+                Photo = "http://www.baidu.com"
+            };
+            OperationResult result = _sysService.Create(inputModel);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult Create(SysSampleDto inputModel)
+        {
+            inputModel = new SysSampleDto()
+            {
+                Id = "222222",
+                Age = "15",
+                CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+                Bir = "1991-04-06 08:08:08",
+                Name = "Aries",
+                Note = "I'm liagnzaixu",
+                Photo = "http://www.baidu.com"
+            };
+            OperationResult result= _sysService.Create(inputModel);
+            return Json(result.ToAjaxResult());
         }
 
         public ActionResult TestError()

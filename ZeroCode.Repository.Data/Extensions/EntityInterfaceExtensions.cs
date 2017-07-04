@@ -1,8 +1,7 @@
 ﻿using System;
 using ZeroCode.Utility.Extensions;
-using ZeroCode.Repository.Data;
 
-namespace ZeroCode.Data.Demo.Extensions
+namespace ZeroCode.Repository.Data.Extensions
 {
     public static class EntityInterfaceExtensions
     {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using ZeroCode.Repository.Data;
 using ZeroCode.Utility.Extensions;
 
-namespace ZeroCode.Data.Demo.Extensions
+namespace ZeroCode.Repository.Data.Extensions
 {
     public static class DbContextExtensions
     {

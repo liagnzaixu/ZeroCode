@@ -3,7 +3,7 @@ using ZeroCode.CommonData;
 
 namespace ZeroCode.Model.Sys
 {
-    public class SysSampleOutputDto:IOutputDto
+    public class SysSampleDto:IOutputDto,IInputDto<string>
     {
         public string Id { get; set; }
         public string Name { get; set; }

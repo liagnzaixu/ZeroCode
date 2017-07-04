@@ -13,7 +13,8 @@ namespace ZeroCode.AutoMapper.Profiles
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<SysSample, SysSampleOutputDto>();
+            Mapper.CreateMap<SysSample, SysSampleDto>();
+            Mapper.CreateMap<SysSampleDto, SysSample>();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using ZeroCode.CommonData;
-using ZeroCode.Data.Demo.Extensions;
+using ZeroCode.Repository.Data.Extensions;
 using ZeroCode.Utility.Extensions;
 
 namespace ZeroCode.Repository.Data

@@ -7,8 +7,10 @@ namespace ZeroCode.Service.Sys
 {
     public interface ISysSampleService
     {
-        List<SysSampleOutputDto> GetAllSys();
+        List<SysSampleDto> GetAllSys();
 
-        PageResult<SysSampleOutputDto> GetSysToPage(GridRequest request);
+        PageResult<SysSampleDto> GetSysToPage(GridRequest request);
+
+        OperationResult Create(SysSampleDto model);
     }
 }

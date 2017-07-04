@@ -617,6 +617,7 @@
     <Content Include="Views\SysSample\TestComponents.cshtml" />
     <Content Include="Views\SysSample\TestError2.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\SysSample\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
