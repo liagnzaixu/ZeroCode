@@ -1,10 +1,29 @@
-﻿
+﻿@model ZeroCode.Model.Sys.SysSampleDto
+
 @{
     ViewBag.Title = "创建";
     Layout = null;
 }
 
+
 <div class="">
-    
+    <a id="btn_add" href="javascript:;" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save' "></a>
 </div>
 
+@using (Html.BeginForm("Create","SysSample",FormMethod.Post,new { Id="CreateForm"}))
+{
+    @Html.ValidationSummary(true)
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Id)
+            </td>
+            <td>
+                @Html.EditorFor(model => model.Id)
+            </td>
+            <td>
+                @Html.ValidationMessageFor(model=>model.Id)
+            </td>
+        </tr>
+    </table>
+}
