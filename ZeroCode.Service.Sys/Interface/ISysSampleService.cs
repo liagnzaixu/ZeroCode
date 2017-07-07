@@ -14,6 +14,12 @@ namespace ZeroCode.Service.Sys
         OperationResult Create(SysSampleDto model);
 
         OperationResult Create(List<SysSampleDto> list);
+
+        OperationResult Delete(string id);
+        
+        OperationResult Update(SysSampleDto model);
+
+        OperationResult<SysSampleDto> GetDetail(string id);
     }
 
 }

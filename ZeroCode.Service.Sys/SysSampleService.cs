@@ -11,6 +11,7 @@ using ZeroCode.CommonData.Filter;
 using ZeroCode.CommonData;
 using ZeroCode.Repository.Data.Extensions;
 using Microsoft.Practices.Unity;
+using ZeroCode.Utility.Extensions;
 
 namespace ZeroCode.Service.Sys
 {
@@ -57,10 +58,28 @@ namespace ZeroCode.Service.Sys
             return SysRep.Insert(list);
         }
 
-
-        public string GetS()
+        public OperationResult Delete(string id)
         {
-            return "";
+            if (id.IsNullOrEmpty()) throw new ArgumentNullException(id);
+            int execResult= SysRep.DeleteDirect(id);
+            return new OperationResult(execResult == 1 ? OperationResultType.Success : OperationResultType.QueryNull);
+        }
+
+        public OperationResult Update(SysSampleDto model)
+        {
+            int execResult = SysRep.Update(Mapper.Map<SysSample>(model));
+            return new OperationResult(execResult == 1 ? OperationResultType.Success : OperationResultType.Error);
+        }
+
+        public OperationResult<SysSampleDto> GetDetail(string id)
+        {
+            SysSampleDto dto= Mapper.Map<SysSampleDto>(SysRep.GetByKey(id));
+            if (dto == null)
+            {
+                return new OperationResult<SysSampleDto>(OperationResultType.QueryNull);
+                
+            }
+            return new OperationResult<SysSampleDto>(OperationResultType.Success, null, dto);
         }
     }
 }

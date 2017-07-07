@@ -12,6 +12,7 @@ using ZeroCode.Service.Sys;
 using ZeroCode.Model.Sys;
 using ZeroCode.Web.MVC.UI;
 using ZeroCode.Web.MVC.Extensions;
+using ZeroCode.WebUI.Properties;
 
 namespace ZeroCode.WebUI.Controllers
 {
@@ -39,57 +40,12 @@ namespace ZeroCode.WebUI.Controllers
 
         public ActionResult Create()
         {
-
-           List<SysSampleDto> list = new List<SysSampleDto>() 
-           { 
-                new SysSampleDto()
-                {
-                    Id = "222225",
-                    Age = "15",
-                    CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                    Bir = "1991-04-06 08:08:08",
-                    Name = "Aries",
-                    Note = "I'm liagnzaixu",
-                    Photo = "http://www.baidu.com"
-                },
-                new SysSampleDto()
-                {
-                    Id = "222223",
-                    Age = "17",
-                    CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                    Bir = "1991-04-06 08:08:08",
-                    Name = "Aries",
-                    Note = "I'm liagnzaixu",
-                    Photo = "http://www.baidu.com"
-                },
-                new SysSampleDto()
-                {
-                    Id = "222224",
-                    Age = "18",
-                    CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                    Bir = "1991-04-06 08:08:08",
-                    Name = "Aries",
-                    Note = "I'm liagnzaixu",
-                    Photo = "http://www.baidu.com"
-                },
-           };
-           OperationResult result = _sysService.Create(list);
             return View();
         }
 
         [HttpPost]
         public JsonResult Create(SysSampleDto inputModel)
         {
-            inputModel = new SysSampleDto()
-            {
-                Id = "222222",
-                Age = "15",
-                CreateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                Bir = "1991-04-06 08:08:08",
-                Name = "Aries",
-                Note = "I'm liagnzaixu",
-                Photo = "http://www.baidu.com"
-            };
             OperationResult result= _sysService.Create(inputModel);
             return Json(result.ToAjaxResult());
         }
@@ -102,12 +58,22 @@ namespace ZeroCode.WebUI.Controllers
 
         public ActionResult Detail(string id)
         {
-            return View();
+            OperationResult<SysSampleDto> operationResult  = _sysService.GetDetail(id);
+            if (!operationResult.Successed)
+            {
+                return View(Resources.Url_View_NotFound);
+            }
+            return View(operationResult.Data);
         }
 
         public ActionResult Edit(string id)
         {
-            return View();
+            OperationResult<SysSampleDto> operationResult = _sysService.GetDetail(id);
+            if (!operationResult.Successed)
+            {
+                return View(Resources.Url_View_NotFound);
+            }
+            return View(operationResult.Data);
         }
 
         [HttpPost]
