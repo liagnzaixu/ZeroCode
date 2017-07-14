@@ -581,11 +581,14 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-date-tool.js" />
     <Content Include="Scripts\jquery-zc-extensions.js" />
     <Content Include="Scripts\jquery.easyui-1.4.1.js" />
     <Content Include="Scripts\jquery.easyui.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.easyui.plus.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -625,6 +628,7 @@
     <Content Include="Views\SysSample\Create.cshtml" />
     <Content Include="Views\SysSample\Detail.cshtml" />
     <Content Include="Views\SysSample\Edit.cshtml" />
+    <Content Include="Views\Shared\_Layout_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,7 +1,33 @@
-﻿
+﻿@model ZeroCode.Model.Sys.SysSampleDto
 @{
     ViewBag.Title = "Detail";
+    Layout = null;
 }
 
-<h2>Detail</h2>
-
+<h2>用户详情</h2>
+<table>
+    <tr>
+        <td>@Html.Label("Id","账号")</td>
+        <td><span>@Model.Id</span></td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Id", "姓名")</td>
+        <td><span>@Model.Name</span></td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Age", "年龄")</td>
+        <td><span>@Model.Age</span></td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Bir", "生日")</td>
+        <td><span>@Model.Bir</span></td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Note", "账号")</td>
+        <td><span>@Model.Note</span></td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Photo", "照片")</td>
+        <td><span>@Model.Photo</span></td>
+    </tr>
+</table>

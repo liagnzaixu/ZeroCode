@@ -61,20 +61,21 @@
         //    });
         //});
 
-        function doSearch() { alert("search")}
+        function doSearch() { alert("search") }
+
     </script>
 </head>
 <body>
 <div>
     <div id="modal-window" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false">
-        
+        <iframe id="modal-frame" name="modal-frame" width="100%" height="98%" scrolling="no" frameborder="0"  src="about:blank"></iframe>
     </div>
     <div class="easyui-panel" style="padding: 5px;">
         <input class="easyui-searchbox" data-options="prompt:'输入关键字搜索',searcher:doSearch" style="width: 300px" />
         <a id="btn-add" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">新增</a>
         <a id="btn-edit" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'">编辑</a>
-        <a id="remove" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'">删除</a>
-        <a id="detail" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-more'">详情</a>
+        <a id="btn-remove" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'">删除</a>
+        <a id="btn-detail" href="javascript:" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-more'">详情</a>
 
     </div>
     <table id="List"></table>

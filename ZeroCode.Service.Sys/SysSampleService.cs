@@ -41,14 +41,15 @@ namespace ZeroCode.Service.Sys
                     Name=m.Name,
                     Note=m.Note,
                     Photo=m.Photo,
-                    Age=m.Age.ToString(),
-                    Bir=m.Bir.ToString(),
-                    CreateTime= m.CreateTime.ToString(),
+                    Age=(int)m.Age,
+                    Bir=(DateTime)m.Bir,
+                    CreateTime= (DateTime)(m.CreateTime),
                 });
         }
 
         public OperationResult Create(SysSampleDto model)
         {
+            model.CreateTime = DateTime.Now;
             int execResult= SysRep.Insert(Mapper.Map<SysSample>(model));
             return new OperationResult(execResult == 1 ? OperationResultType.Success:OperationResultType.NoChanged);
         }

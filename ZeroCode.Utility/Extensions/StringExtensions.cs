@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ZeroCode.Utility.Extensions
@@ -33,6 +34,44 @@ namespace ZeroCode.Utility.Extensions
         {
             return string.IsNullOrEmpty(value);
         }
+
+        /// <summary>
+        /// 指示所指定的正则表达式在指定的输入字符串中是否找到了匹配项。
+        /// </summary>
+        /// <param name="value">要搜索匹配项的字符串。</param>
+        /// <param name="pattern">要匹配的正则表达式模式。</param>
+        /// <returns>如果正则表达式找到匹配项，则为 true；否则，为 false。</returns>
+        public static bool IsMatch(this string value, string pattern)
+        {
+            return Regex.IsMatch(value, pattern);
+        }
+
+        /// <summary>
+        /// 指示所指定的正则表达式是否使用指定的匹配选项在指定的输入字符串中找到了匹配项。
+        /// </summary>
+        /// <param name="value">要搜索匹配项的字符串</param>
+        /// <param name="pattern">要匹配的正则表达式模式。</param>
+        /// <param name="option">枚举值的一个按位组合，这些枚举值提供匹配选项。</param>
+        /// <returns>如果正则表达式找到匹配项，则为 true；否则，为 false。</returns>
+        public static bool IsMatch(this string value,string pattern, RegexOptions option)
+        {
+            return Regex.IsMatch(value, pattern);
+        }
+
+        /// <summary>
+        /// 指示所指定的正则表达式是否使用指定的匹配选项在指定的输入字符串中找到了匹配项和超时间隔。
+        /// </summary>
+        /// <param name="value">要搜索匹配项的字符串。</param>
+        /// <param name="pattern">要匹配的正则表达式模式。</param>
+        /// <param name="option">枚举值的一个按位组合，这些枚举值提供匹配选项。</param>
+        /// <param name="matchTimeout">超时间隔，或 System.Text.RegularExpressions.Regex.InfiniteMatchTimeout 指示该方法不应超时。</param>
+        /// <returns>如果正则表达式找到匹配项，则为 true；否则，为 false。</returns>
+        public static bool IsMatch(this string value, string pattern, RegexOptions option, TimeSpan matchTimeout)
+        {
+            return Regex.IsMatch(value, pattern, option, matchTimeout);
+        }
+
+
 
         /// <summary>
         /// 指示指定的字符串是 null、空还是仅由空白字符组成。

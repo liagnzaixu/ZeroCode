@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 using System.Web.Mvc;
 using ZeroCode.CommonData;
 using ZeroCode.CommonData.Filter;
-using ZeroCode.Service.Sys;
 using ZeroCode.Model.Sys;
-using ZeroCode.Web.MVC.UI;
+using ZeroCode.Service.Sys;
 using ZeroCode.Web.MVC.Extensions;
+using ZeroCode.Web.MVC.UI;
 using ZeroCode.WebUI.Properties;
 
 namespace ZeroCode.WebUI.Controllers
@@ -35,7 +29,7 @@ namespace ZeroCode.WebUI.Controllers
         {
             GridRequest request = Request.ToGridRequest();
             PageResult<SysSampleDto> page= _sysService.GetSysToPage(request);
-            return Json( page.ToGridData(), JsonRequestBehavior.AllowGet);
+            return Json(page.ToGridData(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Create()
@@ -44,41 +38,62 @@ namespace ZeroCode.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Create(SysSampleDto inputModel)
+        public ActionResult Create(SysSampleDto inputModel)
         {
-            OperationResult result= _sysService.Create(inputModel);
-            return Json(result.ToAjaxResult());
+            if (!ModelState.IsValid)
+            {
+                if(Request.IsAjaxRequest())
+                { 
+                    return Json(new AjaxResult(AjaxResultType.ClientError, "数据验证错误", null));
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            if (Request.IsAjaxRequest())
+            {
+                OperationResult result = _sysService.Create(inputModel);
+                return Json(result.ToAjaxResult());
+            }
+            else
+            {
+                OperationResult result = _sysService.Create(inputModel);
+                return View();
+            }
         }
 
         [HttpPost]
         public JsonResult Delete(string id)
         {
-            return Json("");
+            OperationResult result = _sysService.Delete(id);
+            return Json(result.ToAjaxResult());
         }
 
         public ActionResult Detail(string id)
         {
-            OperationResult<SysSampleDto> operationResult  = _sysService.GetDetail(id);
-            if (!operationResult.Successed)
+            OperationResult<SysSampleDto> result = _sysService.GetDetail(id);
+            if (!result.Successed)
             {
                 return View(Resources.Url_View_NotFound);
             }
-            return View(operationResult.Data);
+            return View(result.Data);
         }
 
         public ActionResult Edit(string id)
         {
-            OperationResult<SysSampleDto> operationResult = _sysService.GetDetail(id);
-            if (!operationResult.Successed)
+            OperationResult<SysSampleDto> result = _sysService.GetDetail(id);
+            if (!result.Successed)
             {
                 return View(Resources.Url_View_NotFound);
             }
-            return View(operationResult.Data);
+            return View(result.Data);
         }
 
         [HttpPost]
         public JsonResult Edit(SysSampleDto inputModel)
         {
+           
             return Json("");
         }
 
