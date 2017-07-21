@@ -61,14 +61,16 @@ namespace ZeroCode.Service.Sys
 
         public OperationResult Delete(string id)
         {
-            if (id.IsNullOrEmpty()) throw new ArgumentNullException(id);
+            if (id.IsNullOrEmpty()) throw new ArgumentNullException("id");
             int execResult= SysRep.DeleteDirect(id);
             return new OperationResult(execResult == 1 ? OperationResultType.Success : OperationResultType.QueryNull);
         }
 
         public OperationResult Update(SysSampleDto model)
         {
-            int execResult = SysRep.Update(Mapper.Map<SysSample>(model));
+            if (model==null) throw new ArgumentNullException("id");
+            SysSample entity = Mapper.Map<SysSample>(model);
+            int execResult = SysRep.UpdateDirect(model.Id, user => new SysSample { Name = entity.Name, Age=entity.Age, Bir= entity.Bir, Note= entity.Note, Photo= entity.Photo });
             return new OperationResult(execResult == 1 ? OperationResultType.Success : OperationResultType.Error);
         }
 

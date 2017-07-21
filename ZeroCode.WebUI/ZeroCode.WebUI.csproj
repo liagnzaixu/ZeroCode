@@ -170,6 +170,8 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SysSampleController.cs" />
+    <Compile Include="Controllers\UploadApiController.cs" />
+    <Compile Include="Controllers\UploadDemoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -629,6 +631,7 @@
     <Content Include="Views\SysSample\Detail.cshtml" />
     <Content Include="Views\SysSample\Edit.cshtml" />
     <Content Include="Views\Shared\_Layout_Edit.cshtml" />
+    <Content Include="Views\UploadDemo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -636,6 +639,7 @@
     <Folder Include="Areas\Test\JS\" />
     <Folder Include="Areas\Test\Models\" />
     <Folder Include="Areas\Test\Views\Shared\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

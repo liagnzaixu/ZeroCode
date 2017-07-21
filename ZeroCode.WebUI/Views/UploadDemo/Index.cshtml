@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        body
+        {
+            background-color:#F2F2F2;
+        }
+        .item
+        {
+            width:400px;
+            min-height:200px;
+            padding:0 20px;
+            margin:50px auto;
+            background-color:#fff;
+            border:1px solid #cccccc;
+            box-shadow:#808080 2px 2px 2px;
+            border-radius:5px;
+        }
+    </style>
+</head>
+<body>
+    <form enctype="multipart/form-data" action="UploadFile_1" method="post">
+        <div class="item">
+            <h3>
+                原生简单上传
+            </h3>
+            <input id="File1" name="UserPhoto" type="file" value="" />
+            <input type="submit" value="提交上传" />
+        </div>
+    </form>
+    
+    <form enctype="multipart/form-data" action="./UploadFile_2" method="post">
+        <div class="item">
+            <h3>
+                原生简单上传
+            </h3>
+            <input id="File1" name="UserPhoto" type="file" value="" />
+            <input type="submit" value="提交上传" />
+        </div>
+    </form>
+
+    <form enctype="multipart/form-data" action="./UploadFile_2" method="post">
+        <div class="item">
+            <h3>
+                原生简单上传
+            </h3>
+            <input id="File1" name="UserPhoto" type="file" value="" />
+            <input type="submit" value="提交上传" />
+        </div>
+    </form>
+</body>
+</html>

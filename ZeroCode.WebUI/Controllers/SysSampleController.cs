@@ -16,6 +16,7 @@ namespace ZeroCode.WebUI.Controllers
 
         public SysSampleController(ISysSampleService sysService)
         {
+            
             this._sysService = sysService;
         }
         //
@@ -93,8 +94,12 @@ namespace ZeroCode.WebUI.Controllers
         [HttpPost]
         public JsonResult Edit(SysSampleDto inputModel)
         {
-           
-            return Json("");
+            if (!ModelState.IsValid)
+            {
+                return Json(new AjaxResult(AjaxResultType.ClientError, "数据验证错误", null));
+            }
+            OperationResult result = _sysService.Update(inputModel);
+            return Json(result.ToAjaxResult());
         }
 
         public ActionResult TestError()

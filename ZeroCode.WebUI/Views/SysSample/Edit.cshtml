@@ -7,7 +7,7 @@
 
 
 <script>
-    function call_addSuccess(data, testStatus) {
+    function call_editSuccess(data, testStatus) {
         if (data.Status=="Success") {
             parent.pageObj.business.frameReturnByCreate("操作成功",true,true);
 
@@ -15,7 +15,7 @@
             parent.pageObj.business.frameReturnByCreate(data.Message, false, false);
         }
     }
-    function call_addError(XMLhttpRequest,textStatus,errorThrown) {
+    function call_editError(XMLhttpRequest, textStatus, errorThrown) {
         parent.pageObj.business.frameReturnByCreate("请求发送异常", false, false);
     }
 
@@ -26,7 +26,7 @@
     <a id="btn-add" href="javascript:;" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save' "></a>
 
 </div>
-@using (Ajax.BeginForm("Edit", "SysSample", new AjaxOptions { OnSuccess = "call_addSuccess", HttpMethod = "POST", OnFailure = "call_addError", LoadingElementDuration = 300, LoadingElementId = "DivLoading" }))
+@using (Ajax.BeginForm("Edit", "SysSample", new AjaxOptions { OnSuccess = "call_editSuccess", HttpMethod = "POST", OnFailure = "call_editError", LoadingElementDuration = 300, LoadingElementId = "DivLoading" }))
 {
     @Html.ValidationSummary(true)
     <table>

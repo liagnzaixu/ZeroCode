@@ -3,7 +3,7 @@
     var tool = {
         closeModalWindow: function () {
             $(tempObj.selector.modal_window).window('close');
-            window.frames[modalFrame].location.replace('about:blank');
+            window.frames[tempObj.selector.modalFrame].location.replace('about:blank');
         },
         reloadDatagrid: function (reload) {
             $(tempObj.selector.list).datagrid(reload ? 'reload' : 'load');
@@ -67,7 +67,8 @@
         },
        
         apiUrl:{
-            sysSampleUrl: '/SysSample/GetSysSample'
+            sysSampleUrl: '/SysSample/GetSysSample',
+            deleteSysUrl: '/SysSample/Delete'
         },
 
         registerEle:{
@@ -108,13 +109,33 @@
             },
 
             click_remove: function () {
-               
+                var row = $(tempObj.selector.list).datagrid('getSelected');
+                if (row == null) { return; }
+
+                tempObj.ajaxRequest.deleteSys(row.Id);
             }
 
         },
 
         ajaxRequest:{
-           
+            deleteSys: function (sysID) {
+                $.ajax({
+                    url: tempObj.apiUrl.deleteSysUrl,
+                    type: "POST",
+                    data: { id: sysID },
+                    success: function (data, textStatus) {
+                        if (data != undefined && data.Status == "Success") {
+                            tool.reloadDatagrid(true);
+                            tool.showMsgBottomRight('操作成功');
+                        } else {
+                            tool.showMsgBottomRight('请求发生异常');
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        tool.showMsgBottomRight('请求发生异常');
+                    },
+                })
+            }
         },
 
         callback:{
