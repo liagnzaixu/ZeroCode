@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,25 +13,25 @@ namespace ZeroCode.WebUI.Controllers
         // GET: UploadDemo
         public ActionResult Index()
         {
-            
             return View();
         }
 
         [HttpPost]
         public ActionResult UploadFile_1()
         {
+            string result = "上传成功";
             HttpPostedFileBase file= Request.Files["UserPhoto"];
             file.SaveAs(Server.MapPath("~/Upload/")+ file.FileName);
-            return Content("上传成功");
+            return Content(result);
         }
 
         [HttpPost]
-        public ActionResult UploadFile_2(HttpPostedFileBase UserPhoto)
+        public ActionResult UploadFile_2()
         {
-            string[] temp = UserPhoto.FileName.Split(new char[] { '.' },StringSplitOptions.RemoveEmptyEntries);
-            string format=temp[temp.Length - 1];
-            UserPhoto.SaveAs(Server.MapPath("~/Upload/") + DateTime.Now.ToString("yyyyMMddhhmmss.")+ format);
-            return Content("上传成功");
+            HttpPostedFileBase file = Request.Files["UserPhoto"];
+            file.SaveAs(Server.MapPath("~/Upload/") + file.FileName);
+
+            return Json("success");
         }
     }
 }

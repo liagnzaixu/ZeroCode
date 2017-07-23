@@ -583,6 +583,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jQuery-ajax-upload.js" />
     <Content Include="Scripts\jquery-date-tool.js" />
     <Content Include="Scripts\jquery-zc-extensions.js" />
     <Content Include="Scripts\jquery.easyui-1.4.1.js" />
