@@ -13,21 +13,58 @@
         body
         {
             background-color:#F2F2F2;
+            margin:0px;
+            padding-top:80px;
         }
         .item
         {
             width:400px;
-            min-height:200px;
-            padding:0 20px;
+            min-height:100px;
+            padding:0 20px 40px 20px;
             margin:50px auto;
             background-color:#fff;
             border:1px solid #cccccc;
             box-shadow:#808080 2px 2px 2px;
             border-radius:5px;
         }
+        .item ul
+        {
+            margin-bottom:40px;
+        }
+        .item li
+        {
+            font-size:12px;
+            margin:3px 0;
+        }
+        .progressWrap
+        {
+            position:fixed;
+            top:0;
+            width:100%;
+            height:85px;
+            margin:0px;
+            padding:0px;
+            background-color: rgba(0,0,0,.5);
+            border:1px solid #808080;
+            text-align:center;
+            box-shadow:#999999 0px 1px 1px;
+
+        }
+        .progressContainer
+        {
+            width:600px;
+            margin:10px auto;
+            
+        }
+        .progressContainer span
+        {
+            font-size:14px;
+            color:#FFF;
+            line-height:30px;
+        }
         .progressBg
         {
-             margin-top:20px;
+             margin-top:5px;
              width:100%;
              height:30px;
              border:1px solid #999999;
@@ -46,20 +83,31 @@
         }
         .progressBar span
         {
-            font-size:14px;
-            color:#FFF;
             line-height:30px;
+        }
+        #btn_resetProgress
+        {
+             float:right;
+             width:100px;
+             height:30px;
+             background-color:#33CCCC;
+             color:#FFF;
+             border-radius:5px;
+             border:1px solid #fff;
         }
     </style>
     <script>
         window.onload = function () {
+            var btnReset = document.getElementById('btn_resetProgress');
+            btnReset.onclick = function () { setProgressBar(0,"KB/s","0%"); }
+            
 
             var btnUpload = document.getElementById('btnUpload');
             btnUpload.onclick = function () {
                 var fileInput = document.getElementById('File2');
                 if (!fileInput.value) { return; }
 
-                setProgressBar('progressBar1', '0%');
+                setProgressBar('progressBar2', '0%');
                 var xhr = new XMLHttpRequest();
                 var formData = new FormData();
                 formData.append("UserPhoto", fileInput.files[0]);
@@ -73,11 +121,12 @@
                     alert("上传失败")
                 };
 
+                //
                 xhr.upload.onprogress = function (event) {
                     if (event.lengthComputable) {
                         var pre = (100 * event.loaded / event.total);
                         pre = Math.floor(pre);
-                        setProgressBar('progressBar1', pre + '%')
+                        setProgressBar('progressBar2', pre + '%')
                     }
                 };
 
@@ -85,11 +134,16 @@
             }
         }
 
-        function setProgressBar(id,pre) {
+        function setProgressBar(speed,unit, pre) {
+            var txtSpead = document.getElementById('speed');
+            var txtUnit = document.getElementById('unit');
             var progressBar = document.getElementById('progressBar');
+            var progressPre = progressBar.firstElementChild;
+
+            txtSpead.innerText = speed;
+            txtUnit.innerText = unit;
             progressBar.style.width = pre;
 
-            var progressPre = progressBar.firstChild;
             if (pre == "0%") {
                 pre = "";
             } 
@@ -99,31 +153,63 @@
     </script>
 </head>
 <body>
-    <form enctype="multipart/form-data" action="UploadFile_1" method="post">
-        <div class="item">
-            <h3>
-                原生简单上传
-            </h3>
-            <input id="File1" name="UserPhoto" type="file" value="" />
-            <input type="submit" value="提交上传" />
-        </div>
-    </form>
 
-    <form enctype="multipart/form-data" action="./UploadFile_2" method="post">
-        <div class="item">
-            <h3>
-                JavaScript异步上传 (使用HTML5 API)
-            </h3>
-            <input id="File2" name="UserPhoto" type="file" value="" />
-            <input id="btnUpload" type="button" value="提交上传" />
+    <div class="progressWrap">
+        <div class="progressContainer">
+            <div>
+                <span>上传速度:</span>
+                <span id="speed"></span>
+                <span id="unit"></span>
+                <input id="btn_resetProgress" type="button"  value="重置" />
+            </div>
             <div class="progressBg">
-                <div id="progressBar1" class="progressBar">
+                <div id="progressBar" class="progressBar">
                     <span>0%</span>
                 </div>
             </div>
             
         </div>
-        
+    </div>
+
+    <form enctype="multipart/form-data" action="UploadFile_1" method="post">
+        <div class="item">
+            <h3>
+                原生简单上传
+            </h3>
+            <ul>
+                <li>无脚本、无进度条</li>
+                <li>页面会产生刷新</li>
+            </ul>
+            <input id="File1" name="UserPhoto" type="file" value="" />
+            <input type="submit" value="提交上传" />
+        </div>
     </form>
+
+    <div class="item">
+        <h3>
+            JavaScript异步上传 
+        </h3>
+        <ul>
+            <li>带进度条、上传速度计算</li>
+            <li>使用HTML5 API，不支持IE8，IE9</li>
+        </ul>
+        <input id="File2" name="UserPhoto" type="file" value="" />
+        <input id="btnUpload" type="button" value="提交上传" />
+        
+    </div>
+
+    <div class="item">
+        <h3>
+            JQuery异步上传
+        </h3>
+        <ul>
+            <li>上个例子的JQuery版</li>
+            <li>使用HTML5 API，不支持IE8，IE9</li>
+        </ul>
+        <input id="File3" name="UserPhoto" type="file" value="" />
+        <input id="btnUpload3" type="button" value="提交上传" />
+    </div>
+
+    
 </body>
 </html>
