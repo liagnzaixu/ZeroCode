@@ -572,6 +572,7 @@
     <Content Include="Content\Default\Module\Home\Images\thirdpart-right-line.png" />
     <Content Include="Content\Default\Module\Home\Images\warning-icon.png" />
     <Content Include="Content\Default\Module\Home\Images\weibo-icon.png" />
+    <Content Include="Content\QmNtaDFWVEhYc3hab2NaS1F6dEl0WEZXVnR6L3c3ZE1lZTBQVmJEa3BZSHNmUEhWd1FrSHBBPT0.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -590,6 +591,7 @@
     <Content Include="Scripts\jquery.easyui.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.easyui.plus.js" />
+    <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

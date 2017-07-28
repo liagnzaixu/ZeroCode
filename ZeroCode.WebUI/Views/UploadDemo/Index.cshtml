@@ -18,18 +18,22 @@
         }
         #messager
         {
+            display:none;
             position:fixed;
             top:50%;
             left:50%;
-            width:200px;
+            min-width:200px;
             min-height:60px;
             margin-top:-30px;
-            margin-left:-100px;
+            margin-left:-110px;
+            padding:0px 20px;
             border-radius:10px;
             text-align:center;
             color:#FFF;
-            background-color: rgba(0,0,0,.75);
+            background-color: #000000;
+            background-color: rgba(0,0,0,0.75);
             cursor:pointer;
+            
         }
         #messager span
         {
@@ -115,26 +119,63 @@
              border-radius:5px;
              border:1px solid #fff;
         }
-        
+        #preview, .img, img  
+        {  
+            width:200px;  
+            height:200px;  
+        }  
+        #preview  
+        {  
+            border:1px solid #000;  
+            overflow:hidden;
+        }  
     </style>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script type="text/javascript">    
+        function preview(file) {
+            var prevDiv = document.getElementById('preview');
+            if (file.files && file.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (evt) {
+                    //prevDiv.innerHTML = '<img id="mm" src="' + evt.target.result + '" />';
+                    var imgMM = document.getElementById('mm');
+                    imgMM.src = evt.target.result;
+                    imgMM.style.display = 'inline';
+                }
+                reader.readAsDataURL(file.files[0]);
+            }
+            else {
+                prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+            }
+        }
+    </script>  
+
     <script>
         var lastTime;
         var loadSize ;
 
         window.onload = function () {
-            
-            
-            
             var messager = document.getElementById('messager');
             messager.onclick = closeMessager;
 
             var btnReset = document.getElementById('btn_resetProgress');
-            btnReset.onclick = function () { setProgressBar(0,"KB/s","0%"); }
+            btnReset.onclick = function () { setProgressBar(0,"kb/s", 'hide', "0%"); }
             
             var btnUpload = document.getElementById('btnUpload');
             btnUpload.onclick = function () {
                 var fileInput = document.getElementById('File2');
                 if (!fileInput.value) { return; }
+
+                var feature = {};
+
+                feature.fileapi = fileInput.files !== undefined;
+                feature.formdata = (typeof window.FormData !== 'undefined');
+
+                if (!feature.fileapi || !feature.formdata) {
+                    showMessage('当前浏览器不支持Html5，请更换高级浏览器');
+                    return;
+                }
 
                 var xhr = new XMLHttpRequest();
                 var formData = new FormData();
@@ -148,38 +189,51 @@
                 xhr.onload = function (event) {
                     if (xhr.status == 200) {
                         showMessage("上传成功");
-                    } else {
-                        showMessage("上传失败");
+                        return;
+                    }
+
+                    if (xhr.status == 404) {
+                        showMessage("请求路径错误");
+                        setProgressBar(0, 'kb/s', 'hide', '0%');
+                        return;
+                    }
+
+                    if (xhr.status == 500) {
+                        console.error('xhr.status == 500');
+                        showMessage("服务器异常");
                     }
                 };
 
                 //请求异常(不包括404)
                 xhr.onerror = function () {
+                    console.error('xhr.onerror');
                     showMessage("请求发生异常");
                 };
 
-                //上传开始
+                //上传开始事件
                 xhr.upload.onloadstart = function () {
-                    setProgressBar('progressBar', '0%');
-                    lastTime = new Date().getDate();
+                    setProgressBar(0,'kb/s','hide', '0%');
+                    lastTime = new Date().getTime();
                     loadSize = 0;
                 }
-
-                //间歇调用该方法用来获取上传过程中的信息
+                
+                //上传过程事件，间歇调用该方法用来获取上传过程中的信息
                 xhr.upload.onprogress = function (event) {
-                    if (!event.lengthComputable) { //ProgressEvent.lengthComputable：boolean类型，表示能否计算出文件长度；如果为false，那么ProgressEvent.total则为0.
+                    //ProgressEvent.lengthComputable：boolean类型，表示能否计算出文件长度；如果为false，那么ProgressEvent.total则为0.
+                    //简而言之，lengthComputabl等于true就可以做进度计算
+                    if (!event.lengthComputable) {
                         return;
                     }
 
                     //计算上传速度
-                    var now = new Data().getDate();
+                    var now = new Date().getTime();
                     var timeInterval = (now - lastTime) / 1000;
                     lastTime = now;
 
                     var sizeInterval = event.loaded - loadSize;
                     loadSize = event.loaded;
 
-                    var speed = sizeInterval / sizeInterval; // 单位b/s
+                    var speed = sizeInterval / timeInterval; // 单位b/s
                     var bspeed = speed;
                     var units = "b/s";
 
@@ -201,8 +255,8 @@
                     var precent = (100 * event.loaded / event.total);
                     pre = Math.floor(precent);
 
-                    if (bspeed != 0) {
-                        setProgressBar(0, "b/s", -1, 'noChange');
+                    if (bspeed == 0) {
+                        setProgressBar(0, "b/s", 'infinity', 'noChange');
                     } else {
                         setProgressBar(speed, units, resttime, precent + '%');
                     }
@@ -213,12 +267,16 @@
                     console.info('xhr.upload.onabort');
                 }
 
-                //上传失败
+                //上传异常事件
+                //当网络环境正常时，XMLHttpRequest.status等于404、500并不能触发upload.onerror事件
+                //当网络环境异常时（offline）,会触发upload.onerror事件
                 xhr.upload.onerror = function () {
-                    console.error('xhr.upload.onload');
+                    console.error('xhr.upload.onerror');
                 }
 
-                //上传成功？ 这个时间还有待验证
+                //文件发送完毕事件
+                //当网络环境正常时，即使XMLHttpRequest.status等于404、500，仍会被触发upload.onload事件
+                //当网络环境异常时（offline）,不会触发upload.onload事件
                 xhr.upload.onload = function () {
                     console.info('xhr.upload.onload');
                 }
@@ -228,9 +286,175 @@
                     console.error('xhr.upload.ontimeout');
                 }
 
+                //发送请求
                 xhr.send(formData);
             }
+
+            $('#btnUpload3').click(function () {
+                var $fileInput = $('#File3');
+                if (!$fileInput.val()) { return; }
+
+                var feature = {};
+                //检查是否支持html5 api
+                feature.fileapi = $fileInput.get(0).files !== undefined;
+                feature.formdata = (typeof window.FormData !== 'undefined');
+
+                if (!feature.fileapi || !feature.formdata) {
+                    showMessage('当前浏览器不支持Html5，请更换高级浏览器');
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append("UserPhoto", $fileInput[0].files[0]);
+                $.ajax({
+                    type: 'post',
+                    url: './UploadFile_2',
+                    data: formData,
+                    processData: false,//设置为false。因为data值是FormData对象，不需要对数据做处理。
+                    contentType: false, //设置为false。告诉jQuery不要去设置Content-Type请求头
+                    xhr: function () {
+                        var xhr = $.ajaxSettings.xhr();
+
+                        if (xhr.upload) {
+                            xhr.upload.onloadstart = uploadStart;
+                            xhr.upload.onprogress = uploadProgress;
+                            return xhr;
+                        }
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        showMessage("上传成功");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        showMessage("上传失败");
+                    }
+                });
+            });
+
+            $('#btnUpload4').click(function () {
+                var $fileInput = $('#File4');
+                if (!$fileInput.val()) { return; }
+
+                var options = {
+                    type: 'post',
+                    url: './UploadFile_2',
+                    success: function (data, textStatus, jqXHR) {
+                        showMessage("上传成功");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        showMessage("上传失败");
+                    }
+                }
+
+                var feature = {};
+
+                //检查是否支持html5 api
+                feature.fileapi = $fileInput.get(0).files !== undefined;
+                feature.formdata = (typeof window.FormData !== 'undefined');
+
+                //如果支持html5，那么就使用进度条
+                if (feature.fileapi && feature.formdata) {
+                    options=$.extend(options, {
+                        xhr: function () {
+                            var xhr = $.ajaxSettings.xhr();
+
+                            if (xhr.upload) {
+                                xhr.upload.onloadstart = uploadStart;
+                                xhr.upload.onprogress = uploadProgress;
+                                return xhr;
+                            }
+                        }
+                    });
+                }
+
+                $("#form4").ajaxSubmit(options);
+            });
+
+            $('#File5').change(function () {
+                preview(document.getElementById('File5'));
+            });
+
+            var img1 = document.getElementById("mm");
+            //火狐和IE兼容的获得元素属性
+            /*function getsize(obj,att){
+                if(document.all){
+                    return obj.currentStyle[att];
+                }
+                else{
+                    return getComputedStyle(obj,att)[att];
+                }
+            }
+            alert(getsize(img1,"width"));
+            */
+            //火狐和IE兼容的获得鼠标滚轮信息
+            if (img1&&img1.addEventListener) {
+                img1.onmousewheel = scrollfun;
+                img1.addEventListener("DOMMouseScroll", scrollfun, false);
+            }
+            function scrollfun(e) {
+                var ev = e || window.event;//兼容分别为IE和火狐
+                var num = ev.wheelDelta || ev.detail;//兼容分别为IE和火狐
+                //alert(num);
+                if ((num == -3 || num == 120) && img1.offsetWidth < 900) {
+                    img1.style.width = (img1.offsetWidth) * 1.2 + "px";
+                    img1.style.height = (img1.offsetHeight) * 1.2 + "px";
+                }
+                else if ((num == 3 || num == -120) && img1.offsetWidth > 60) {
+                    img1.style.width = (img1.offsetWidth) / 1.2 + "px";
+                    img1.style.height = (img1.offsetHeight) / 1.2 + "px";
+                }
+                ev.preventDefault();
+            }
         }
+
+        function uploadStart() {
+            setProgressBar(0, 'kb/s', 'hide', '0%');
+            lastTime = new Date().getTime();
+            loadSize = 0;
+        }
+
+        function uploadProgress(event) {
+            //ProgressEvent.lengthComputable：boolean类型，表示能否计算出文件长度；如果为false，那么ProgressEvent.total则为0.
+            //简而言之，lengthComputabl等于true就可以做进度计算
+            if (!event.lengthComputable) {
+                return;
+            }
+
+            //计算上传速度
+            var now = new Date().getTime();
+            var timeInterval = (now - lastTime) / 1000;
+            lastTime = now;
+
+            var sizeInterval = event.loaded - loadSize;
+            loadSize = event.loaded;
+
+            var speed = sizeInterval / timeInterval; // 单位b/s
+            var bspeed = speed;
+            var units = "b/s";
+
+            if (speed / 1024 > 1) {
+                speed = speed / 1024;
+                units = 'kb/s';
+            }
+            if (speed / 1024 > 1) {
+                speed = speed / 1024;
+                units = 'mb/s';
+            }
+
+            speed = speed.toFixed(1);
+
+            //计算剩余时间
+            var resttime = ((event.total - event.loaded) / bspeed).toFixed(1); //单位 秒
+                    
+            //计算进度百分比
+            var precent = (100 * event.loaded / event.total);
+            pre = Math.floor(precent);
+
+            if (bspeed == 0) {
+                setProgressBar(0, "b/s", 'infinity', 'noChange');
+            } else {
+                setProgressBar(speed, units, resttime, precent + '%');
+            }
+        };
 
         function setProgressBar(speed,units,restTime,precent) {
             var txtSpead = document.getElementById('speed');
@@ -241,7 +465,7 @@
             txtSpead.innerText = speed;
             txtUnits.innerText = units;
 
-            if (noChange == 'noChange') {
+            if (precent == 'noChange') {
                 return;
             }
 
@@ -258,7 +482,7 @@
             var msger = document.getElementById('messager');
             var msgerTxt = document.getElementById('messagerTxt');
 
-            msgerTxt.innerText = txt;
+            msgerTxt.innerHTML = txt;
             msger.style.display = "block";
             setTimeout('closeMessager()', time);
         }
@@ -268,11 +492,13 @@
             msger.style.display = "none";
         }
 
+
+
     </script>
 </head>
 <body>
-    <div id="messager">
-        <span id="messagerTxt">上传成功</span>
+    <div id="messager" style="display:none">
+        <span id="messagerTxt"></span>
     </div>
     <div class="progressWrap">
         <div class="progressContainer">
@@ -280,7 +506,7 @@
                 <span>上传速度:</span>
                 <span id="speed"></span>
                 <span id="units"></span>
-                <input id="btn_resetProgress" type="button"  value="重置" />
+                <input id="btn_resetProgress" type="button"  value="重置进度条" />
             </div>
             <div class="progressBg">
                 <div id="progressBar" class="progressBar">
@@ -291,27 +517,30 @@
         </div>
     </div>
 
-    <form enctype="multipart/form-data" action="UploadFile_1" method="post">
+    <form enctype="multipart/form-data" action="UploadFile_1" method="post" target="frameResult">
         <div class="item">
             <h3>
-                原生简单上传
+                1、原生简单上传
             </h3>
             <ul>
                 <li>无脚本、无进度条</li>
-                <li>页面会产生刷新</li>
+                <li>使用iframe伪造无刷新假象</li>
+                <li>Jquery插件ajaxFileUpload.js的实现原型就这个</li>
             </ul>
             <input id="File1" name="UserPhoto" type="file" value="" />
             <input type="submit" value="提交上传" />
+            <iframe src="about:blank" id="frameResult" name="frameResult"></iframe>
         </div>
     </form>
 
     <div class="item">
         <h3>
-            JavaScript异步上传 
+            2、JavaScript异步上传 
         </h3>
         <ul>
             <li>带进度条、上传速度计算</li>
             <li>使用HTML5 API，不支持IE8，IE9</li>
+            <li>不支持大文件(30M以内)</li>
         </ul>
         <input id="File2" name="UserPhoto" type="file" value="" />
         <input id="btnUpload" type="button" value="提交上传" />
@@ -320,16 +549,61 @@
 
     <div class="item">
         <h3>
-            JQuery异步上传
+            3、JQuery异步上传
         </h3>
         <ul>
             <li>上个例子的JQuery版</li>
-            <li>使用HTML5 API，不支持IE8，IE9</li>
+            <li>同样不支持IE8，IE9</li>
         </ul>
         <input id="File3" name="UserPhoto" type="file" value="" />
         <input id="btnUpload3" type="button" value="提交上传" />
     </div>
 
-    
+    <form id="form4" enctype="multipart/form-data" action="UploadFile_2" method="post" >
+        <div class="item">
+            <h3>
+                4、异步表单插件jquery.form.js
+            </h3>
+            <ul>
+                <li>前三个例子的集成版</li>
+                <li>当浏览器不支持H5，使用例子1的方式</li>
+                <li>当浏览器支持H5，使用例子2、3的方式</li>
+            </ul>
+            <input id="File4" name="UserPhoto" type="file" value="" />
+            <input id="btnUpload4" type="button" value="提交上传" />
+        </div>
+    </form>
+
+    <div class="item">
+        <h3>
+            5、上传头像实例（拖拽\预览\截取）
+        </h3>
+        <ul>
+            <li>前三个例子的集成版</li>
+            <li>当浏览器不支持H5，使用例子1的方式</li>
+            <li>当浏览器支持H5，使用例子2、3的方式</li>
+        </ul>
+        <input id="File5" name="UserPhoto" type="file" value="" />
+        <input id="btnUpload5" type="button" value="提交上传" />
+
+        <div id="preview">
+            <img alt="mm" id="mm" style="display:none;" />
+        </div>
+        <img id="sss" src="~/Content/QmNtaDFWVEhYc3hab2NaS1F6dEl0WEZXVnR6L3c3ZE1lZTBQVmJEa3BZSHNmUEhWd1FrSHBBPT0.jpg"   />
+    </div>
+
+    <div class="item">
+        <h3>
+            6、大文件分块上传
+        </h3>
+        <ul>
+            <li>前三个例子的集成版</li>
+            <li>当浏览器不支持H5，使用例子1的方式</li>
+            <li>当浏览器支持H5，使用例子2、3的方式</li>
+        </ul>
+        <input id="File6" name="UserPhoto" type="file" value="" />
+        <input id="btnUpload6" type="button" value="提交上传" />
+    </div>
+
 </body>
 </html>

@@ -30,7 +30,6 @@ namespace ZeroCode.WebUI.Controllers
         {
             HttpPostedFileBase file = Request.Files["UserPhoto"];
             file.SaveAs(Server.MapPath("~/Upload/") + file.FileName);
-
             return Json("success");
         }
     }
