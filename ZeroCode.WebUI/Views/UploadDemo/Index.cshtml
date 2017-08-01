@@ -10,158 +10,180 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <style>
-        body
-        {
-            background-color:#F2F2F2;
-            margin:0px;
-            padding-top:80px;
+        body {
+            background-color: #F2F2F2;
+            margin: 0px;
+            padding-top: 80px;
         }
-        #messager
-        {
-            display:none;
-            position:fixed;
-            top:50%;
-            left:50%;
-            min-width:200px;
-            min-height:60px;
-            margin-top:-30px;
-            margin-left:-110px;
-            padding:0px 20px;
-            border-radius:10px;
-            text-align:center;
-            color:#FFF;
+
+        #messager {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 200px;
+            min-height: 60px;
+            margin-top: -30px;
+            margin-left: -110px;
+            padding: 0px 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #FFF;
             background-color: #000000;
             background-color: rgba(0,0,0,0.75);
-            cursor:pointer;
-            
+            cursor: pointer;
         }
-        #messager span
-        {
-            line-height:60px;
-            font-size:14px;
-        }
-        .item
-        {
-            width:400px;
-            min-height:100px;
-            padding:0 20px 40px 20px;
-            margin:50px auto;
-            background-color:#fff;
-            border:1px solid #cccccc;
-            box-shadow:#808080 2px 2px 2px;
-            border-radius:5px;
-        }
-        .item ul
-        {
-            margin-bottom:40px;
-        }
-        .item li
-        {
-            font-size:12px;
-            margin:3px 0;
-        }
-        .progressWrap
-        {
-            position:fixed;
-            top:0;
-            width:100%;
-            height:85px;
-            margin:0px;
-            padding:0px;
-            background-color: rgba(0,0,0,.5);
-            border:1px solid #808080;
-            text-align:center;
-            box-shadow:#999999 0px 1px 1px;
 
+            #messager span {
+                line-height: 60px;
+                font-size: 14px;
+            }
+
+        .item {
+            width: 800px;
+            min-height: 100px;
+            padding: 0 20px 40px 20px;
+            margin: 50px auto;
+            background-color: #fff;
+            border: 1px solid #cccccc;
+            box-shadow: #808080 2px 2px 2px;
+            border-radius: 5px;
         }
-        .progressContainer
-        {
-            width:600px;
-            margin:10px auto;
-            
+
+            .item ul {
+                margin-bottom: 40px;
+            }
+
+            .item li {
+                font-size: 12px;
+                margin: 3px 0;
+            }
+
+        .progressWrap {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 85px;
+            margin: 0px;
+            padding: 0px;
+            background-color: rgba(0,0,0,.5);
+            border: 1px solid #808080;
+            text-align: center;
+            box-shadow: #999999 0px 1px 1px;
         }
-        .progressContainer span
-        {
-            font-size:14px;
-            color:#FFF;
-            line-height:30px;
+
+        .progressContainer {
+            width: 600px;
+            margin: 10px auto;
         }
-        .progressBg
-        {
-             margin-top:5px;
-             width:100%;
-             height:30px;
-             border:1px solid #999999;
-             border-radius:5px;
-             box-shadow:#808080 1px 1px 1px;
-             background-color:#CCCCCC;
+
+            .progressContainer span {
+                font-size: 14px;
+                color: #FFF;
+                line-height: 30px;
+            }
+
+        .progressBg {
+            margin-top: 5px;
+            width: 100%;
+            height: 30px;
+            border: 1px solid #999999;
+            border-radius: 5px;
+            box-shadow: #808080 1px 1px 1px;
+            background-color: #CCCCCC;
         }
-        .progressBar
+
+        .progressBar {
+            width: 50%;
+            height: 28px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: #33CCCC;
+            text-align: center;
+        }
+
+            .progressBar span {
+                line-height: 30px;
+            }
+
+        #btn_resetProgress {
+            float: right;
+            width: 100px;
+            height: 30px;
+            background-color: #33CCCC;
+            color: #FFF;
+            border-radius: 5px;
+            border: 1px solid #fff;
+        }
+
+        #photoWrap {
+            width: 100%;
+            height:320px;
+            margin-top:20px;
+        }
+
+
+
+        #crop_area,#preview_area
         {
-            width:50%;
-            height:28px;
-            border:1px solid #fff;
+            display:table-cell;
+        }
+        #crop_area
+        {
+            width:300px;
+            height:300px;
+            border:1px solid #ccc;
+            background-color:#f0f0ee;
+            vertical-align: bottom;
+        }
+
+        #crop_img
+        {
+            max-width:300px;
+        }
+        #preview_area
+        {
+            padding-left:20px;   
+            font-size:12px;
+        }
+
+
+        #preview_small_img
+        {
+            width:48px;
+            height:48px;
+            border:1px solid #666666;
             border-radius:5px;
-            background-color:#33CCCC;
-            text-align:center;
+            box-shadow:#cccccc 2px 2px;
         }
-        .progressBar span
+        #preview_large_txt
         {
-            line-height:30px;
+            margin-top:10px;
         }
-        #btn_resetProgress
+        #preview_large_img
         {
-             float:right;
-             width:100px;
-             height:30px;
-             background-color:#33CCCC;
-             color:#FFF;
-             border-radius:5px;
-             border:1px solid #fff;
+            width:180px;
+            height:180px;
+            border:1px solid #666666;
+            border-radius:5px;
+            box-shadow:#cccccc 2px 2px;
         }
-        #preview, .img, img  
-        {  
-            width:200px;  
-            height:200px;  
-        }  
-        #preview  
-        {  
-            border:1px solid #000;  
-            overflow:hidden;
-        }  
     </style>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.form.js"></script>
-    <script type="text/javascript">    
-        function preview(file) {
-            var prevDiv = document.getElementById('preview');
-            if (file.files && file.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (evt) {
-                    //prevDiv.innerHTML = '<img id="mm" src="' + evt.target.result + '" />';
-                    var imgMM = document.getElementById('mm');
-                    imgMM.src = evt.target.result;
-                    imgMM.style.display = 'inline';
-                }
-                reader.readAsDataURL(file.files[0]);
-            }
-            else {
-                prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
-            }
-        }
-    </script>  
+    <script src="~/Scripts/jquery.Jcrop.js"></script>
 
     <script>
         var lastTime;
-        var loadSize ;
+        var loadSize;
 
         window.onload = function () {
             var messager = document.getElementById('messager');
             messager.onclick = closeMessager;
 
             var btnReset = document.getElementById('btn_resetProgress');
-            btnReset.onclick = function () { setProgressBar(0,"kb/s", 'hide', "0%"); }
-            
+            btnReset.onclick = function () { setProgressBar(0, "kb/s", 'hide', "0%"); }
+
             var btnUpload = document.getElementById('btnUpload');
             btnUpload.onclick = function () {
                 var fileInput = document.getElementById('File2');
@@ -212,11 +234,11 @@
 
                 //上传开始事件
                 xhr.upload.onloadstart = function () {
-                    setProgressBar(0,'kb/s','hide', '0%');
+                    setProgressBar(0, 'kb/s', 'hide', '0%');
                     lastTime = new Date().getTime();
                     loadSize = 0;
                 }
-                
+
                 //上传过程事件，间歇调用该方法用来获取上传过程中的信息
                 xhr.upload.onprogress = function (event) {
                     //ProgressEvent.lengthComputable：boolean类型，表示能否计算出文件长度；如果为false，那么ProgressEvent.total则为0.
@@ -250,7 +272,7 @@
 
                     //计算剩余时间
                     var resttime = ((event.total - event.loaded) / bspeed).toFixed(1); //单位 秒
-                    
+
                     //计算进度百分比
                     var precent = (100 * event.loaded / event.total);
                     pre = Math.floor(precent);
@@ -353,7 +375,7 @@
 
                 //如果支持html5，那么就使用进度条
                 if (feature.fileapi && feature.formdata) {
-                    options=$.extend(options, {
+                    options = $.extend(options, {
                         xhr: function () {
                             var xhr = $.ajaxSettings.xhr();
 
@@ -369,41 +391,48 @@
                 $("#form4").ajaxSubmit(options);
             });
 
-            $('#File5').change(function () {
-                preview(document.getElementById('File5'));
-            });
+            //$('#File5').change(function () {
+            //    preview(document.getElementById('File5'));
+            //});
 
-            var img1 = document.getElementById("mm");
-            //火狐和IE兼容的获得元素属性
-            /*function getsize(obj,att){
-                if(document.all){
-                    return obj.currentStyle[att];
+            //var img1 = document.getElementById("previewImg");
+            ////火狐和IE兼容的获得鼠标滚轮信息
+            //if (img1 && img1.addEventListener) {
+            //    img1.onmousewheel = scrollfun;
+            //    img1.addEventListener("DOMMouseScroll", scrollfun, false);
+            //}
+
+            $('#form_upload').ajaxForm({
+                dataType:"json",
+                success: function (data, textStatus, jqXHR) {
+                    if (data.Status == 'success') {
+                        $("#crop_img").attr('src', data.ImgUrl).show();
+                        return;
+                    }
+                    if (data.Status == 'error') {
+                        showMessage(data.Msg);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    showMessage('上传失败');
+                    console.error(textStatus);
                 }
-                else{
-                    return getComputedStyle(obj,att)[att];
-                }
-            }
-            alert(getsize(img1,"width"));
-            */
-            //火狐和IE兼容的获得鼠标滚轮信息
-            if (img1&&img1.addEventListener) {
-                img1.onmousewheel = scrollfun;
-                img1.addEventListener("DOMMouseScroll", scrollfun, false);
-            }
-            function scrollfun(e) {
-                var ev = e || window.event;//兼容分别为IE和火狐
-                var num = ev.wheelDelta || ev.detail;//兼容分别为IE和火狐
-                //alert(num);
-                if ((num == -3 || num == 120) && img1.offsetWidth < 900) {
-                    img1.style.width = (img1.offsetWidth) * 1.2 + "px";
-                    img1.style.height = (img1.offsetHeight) * 1.2 + "px";
-                }
-                else if ((num == 3 || num == -120) && img1.offsetWidth > 60) {
-                    img1.style.width = (img1.offsetWidth) / 1.2 + "px";
-                    img1.style.height = (img1.offsetHeight) / 1.2 + "px";
-                }
-                ev.preventDefault();
-            }
+            });
+        }
+
+        function showMessage(txt, time) {
+            var time = time || 2000;
+            var msger = document.getElementById('messager');
+            var msgerTxt = document.getElementById('messagerTxt');
+
+            msgerTxt.innerHTML = txt;
+            msger.style.display = "block";
+            setTimeout('closeMessager()', time);
+        }
+
+        function closeMessager() {
+            var msger = document.getElementById('messager');
+            msger.style.display = "none";
         }
 
         function uploadStart() {
@@ -444,7 +473,7 @@
 
             //计算剩余时间
             var resttime = ((event.total - event.loaded) / bspeed).toFixed(1); //单位 秒
-                    
+
             //计算进度百分比
             var precent = (100 * event.loaded / event.total);
             pre = Math.floor(precent);
@@ -456,7 +485,7 @@
             }
         };
 
-        function setProgressBar(speed,units,restTime,precent) {
+        function setProgressBar(speed, units, restTime, precent) {
             var txtSpead = document.getElementById('speed');
             var txtUnits = document.getElementById('units');
             var progressBar = document.getElementById('progressBar');
@@ -473,28 +502,44 @@
 
             if (precent == "0%") {
                 precent = "";
-            } 
+            }
             progressPre.innerText = precent;
         }
 
-        function showMessage(txt, time) {
-            var time = time || 2000;
-            var msger = document.getElementById('messager');
-            var msgerTxt = document.getElementById('messagerTxt');
-
-            msgerTxt.innerHTML = txt;
-            msger.style.display = "block";
-            setTimeout('closeMessager()', time);
+        function preview(file) {
+            var prevDiv = document.getElementById('preview');
+            if (file.files && file.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (evt) {
+                    var imgMM = document.getElementById('previewImg');
+                    imgMM.src = evt.target.result;
+                    imgMM.style.display = 'inline';
+                }
+                reader.readAsDataURL(file.files[0]);
+            }
+            else {
+                prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+            }
         }
 
-        function closeMessager() {
-            var msger = document.getElementById('messager');
-            msger.style.display = "none";
+        function scrollfun(e) {
+            var ev = e || window.event;//兼容分别为IE和火狐
+            var num = ev.wheelDelta || ev.detail;//兼容分别为IE和火狐
+            //alert(num);
+            if ((num == -3 || num == 120) && img1.offsetWidth < 900) {
+                img1.style.width = (img1.offsetWidth) * 1.2 + "px";
+                img1.style.height = (img1.offsetHeight) * 1.2 + "px";
+            }
+            else if ((num == 3 || num == -120) && img1.offsetWidth > 60) {
+                img1.style.width = (img1.offsetWidth) / 1.2 + "px";
+                img1.style.height = (img1.offsetHeight) / 1.2 + "px";
+            }
+            ev.preventDefault();
         }
-
 
 
     </script>
+   
 </head>
 <body>
     <div id="messager" style="display:none">
@@ -506,14 +551,14 @@
                 <span>上传速度:</span>
                 <span id="speed"></span>
                 <span id="units"></span>
-                <input id="btn_resetProgress" type="button"  value="重置进度条" />
+                <input id="btn_resetProgress" type="button" value="重置进度条" />
             </div>
             <div class="progressBg">
                 <div id="progressBar" class="progressBar">
                     <span>0%</span>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -535,7 +580,7 @@
 
     <div class="item">
         <h3>
-            2、JavaScript异步上传 
+            2、JavaScript异步上传
         </h3>
         <ul>
             <li>带进度条、上传速度计算</li>
@@ -544,7 +589,7 @@
         </ul>
         <input id="File2" name="UserPhoto" type="file" value="" />
         <input id="btnUpload" type="button" value="提交上传" />
-        
+
     </div>
 
     <div class="item">
@@ -559,7 +604,7 @@
         <input id="btnUpload3" type="button" value="提交上传" />
     </div>
 
-    <form id="form4" enctype="multipart/form-data" action="UploadFile_2" method="post" >
+    <form id="form4" enctype="multipart/form-data" action="UploadFile_2" method="post">
         <div class="item">
             <h3>
                 4、异步表单插件jquery.form.js
@@ -579,18 +624,41 @@
             5、上传头像实例（拖拽\预览\截取）
         </h3>
         <ul>
-            <li>前三个例子的集成版</li>
-            <li>当浏览器不支持H5，使用例子1的方式</li>
-            <li>当浏览器支持H5，使用例子2、3的方式</li>
+            
         </ul>
-        <input id="File5" name="UserPhoto" type="file" value="" />
-        <input id="btnUpload5" type="button" value="提交上传" />
 
-        <div id="preview">
-            <img alt="mm" id="mm" style="display:none;" />
+        <form id="form_upload" enctype="multipart/form-data" action="./UploadPhoto" method="post">
+            <input id="File5" name="UserPhoto" type="file" value="" />
+            <input id="btnUpload5" type="submit" value="提交上传"  />
+        </form>
+
+        <div id="photoWrap">
+            <div id="crop_area">
+                <img id="crop_img" alt="头像" style="display:none" />
+            </div>
+            <div id="preview_area">
+                <div id="preview_title">当前头像</div>
+                <div id="preview_small_txt">48px × 48px</div>
+                <div id="preview_small_wrap">
+                    <img id="preview_small_img" alt="小预览图" src="~/Content/default_48.png" />
+                </div>
+                <div id="preview_large_txt">180px × 180px</div>
+                <div id="preview_large_wrap">
+                    <img id="preview_large_img" alt="大预览图" src="~/Content/default_180.png" />
+                </div>
+            </div>
         </div>
-        <img id="sss" src="~/Content/QmNtaDFWVEhYc3hab2NaS1F6dEl0WEZXVnR6L3c3ZE1lZTBQVmJEa3BZSHNmUEhWd1FrSHBBPT0.jpg"   />
-    </div>
+        <div id="crop_operation">
+            <form id="form_crop" action="./CropPhoto">
+                <input id="uri" type="hidden" />
+                <input id="x" type="hidden" />
+                <input id="y" type="hidden" />
+                <input id="x" type="hidden" />
+                <input id="x" type="hidden" />
+                <input id="btn_crop" type="submit" value="裁剪并保存" />
+            </form>
+        </div>
+</div>
 
     <div class="item">
         <h3>

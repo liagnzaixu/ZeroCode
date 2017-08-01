@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\FileExtension.cs" />
     <Compile Include="Data\JsonHelper.cs" />
     <Compile Include="Data\RegexPatterns.cs" />
     <Compile Include="Drawing\ValidateCoder.cs" />
