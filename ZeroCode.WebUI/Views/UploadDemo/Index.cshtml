@@ -482,6 +482,7 @@
                 success: function (data, textStatus, jqXHR) {
                     if (data.Status == 'success') {
                         showMessage('保存成功');
+                        jcrop_api.destroy();
                         return;
                     }
                     if (data.Status == 'error') {
@@ -493,45 +494,8 @@
                     console.error(textStatus);
                 }
             });
-            
-        }
 
-        function updatePreview(c) {
-            if (parseInt(c.w) > 0) {
-                var rx_large = xsize_large / c.w;
-                var ry_large = ysize_large / c.h;
 
-                $pimg_large.css({
-                    width: Math.round(rx_large * boundx) + 'px',
-                    height: Math.round(ry_large * boundy) + 'px',
-                    marginLeft: '-' + Math.round(rx_large * c.x) + 'px',
-                    marginTop: '-' + Math.round(ry_large * c.y) + 'px'
-                });
-
-                var rx_small = xsize_small / c.w;
-                var ry_small = ysize_small / c.h;
-
-                $pimg_small.css({
-                    width: Math.round(rx_small * boundx) + 'px',
-                    height: Math.round(ry_small * boundy) + 'px',
-                    marginLeft: '-' + Math.round(rx_small * c.x) + 'px',
-                    marginTop: '-' + Math.round(ry_small * c.y) + 'px'
-                });
-            }
-        };
-
-        function updateCropData(c) {
-            jQuery("#x").val(c.x);
-            jQuery("#y").val(c.y);
-            jQuery("#w").val(c.w);
-            jQuery("#h").val(c.h)
-
-            console.group('updateCropData');
-            console.info(c.x)
-            console.info(c.y)
-            console.info(c.w)
-            console.info(c.h)
-            console.groupEnd('updateCropData');
         }
 
         function showMessage(txt, time) {
@@ -651,53 +615,46 @@
             ev.preventDefault();
         }
 
+        function updatePreview(c) {
+            if (parseInt(c.w) > 0) {
+                var rx_large = xsize_large / c.w;
+                var ry_large = ysize_large / c.h;
 
-        //jQuery(function ($) {
-        //    // Create variables (in this scope) to hold the API and image size
-        //    var jcrop_api,
-        //    boundx,
-        //    boundy,
+                $pimg_large.css({
+                    width: Math.round(rx_large * boundx) + 'px',
+                    height: Math.round(ry_large * boundy) + 'px',
+                    marginLeft: '-' + Math.round(rx_large * c.x) + 'px',
+                    marginTop: '-' + Math.round(ry_large * c.y) + 'px'
+                });
 
-        //    // Grab some information about the preview pane
-        //    $preview = $('#preview-pane'),
-        //    $pcnt = $('#preview-pane .preview-container'),
-        //    $pimg = $('#preview-pane .preview-container img'),
+                var rx_small = xsize_small / c.w;
+                var ry_small = ysize_small / c.h;
 
-        //    xsize = $pcnt.width(),
-        //    ysize = $pcnt.height();
+                $pimg_small.css({
+                    width: Math.round(rx_small * boundx) + 'px',
+                    height: Math.round(ry_small * boundy) + 'px',
+                    marginLeft: '-' + Math.round(rx_small * c.x) + 'px',
+                    marginTop: '-' + Math.round(ry_small * c.y) + 'px'
+                });
+            }
+        };
 
-        //    console.log('init', [xsize, ysize]);
+        function updateCropData(c) {
+            jQuery("#x").val(c.x);
+            jQuery("#y").val(c.y);
+            jQuery("#w").val(c.w);
+            jQuery("#h").val(c.h)
 
-        //    $('#target').Jcrop({
-        //        onChange: updatePreview,
-        //        onSelect: updatePreview,
-        //        aspectRatio: xsize / ysize
-        //    }, function () {
-        //        // Use the API to get the real image size
-        //        var bounds = this.getBounds();
-        //        boundx = bounds[0];
-        //        boundy = bounds[1];
-        //        // Store the API in the jcrop_api variable
-        //        jcrop_api = this;
+            console.group('updateCropData');
+            console.info(c.x)
+            console.info(c.y)
+            console.info(c.w)
+            console.info(c.h)
+            console.groupEnd('updateCropData');
+        }
 
-        //        // Move the preview into the jcrop container for css positioning
-        //        $preview.appendTo(jcrop_api.ui.holder);
-        //    });
 
-        //    function updatePreview(c) {
-        //        if (parseInt(c.w) > 0) {
-        //            var rx = xsize / c.w;
-        //            var ry = ysize / c.h;
-
-        //            $pimg.css({
-        //                width: Math.round(rx * boundx) + 'px',
-        //                height: Math.round(ry * boundy) + 'px',
-        //                marginLeft: '-' + Math.round(rx * c.x) + 'px',
-        //                marginTop: '-' + Math.round(ry * c.y) + 'px'
-        //            });
-        //        }
-        //    };
-        //});
+        
     </script>
    
 </head>
