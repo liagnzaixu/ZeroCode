@@ -21,5 +21,10 @@ namespace ZeroCode.WebUI.Controllers
         {
             return View();
         }
+
+        public ActionResult MyIndex()
+        {
+            return View();
+        }
     }
 }

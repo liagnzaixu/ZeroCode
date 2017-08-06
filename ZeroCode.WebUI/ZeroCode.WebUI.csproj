@@ -640,6 +640,7 @@
     <Content Include="Views\SysSample\Edit.cshtml" />
     <Content Include="Views\Shared\_Layout_Edit.cshtml" />
     <Content Include="Views\UploadDemo\Index.cshtml" />
+    <Content Include="Views\Home\MyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
