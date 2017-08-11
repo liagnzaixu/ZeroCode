@@ -21,6 +21,17 @@ namespace ZeroCode.Repository.Data
         public int Age { get; set; }
         public string Gander { get; set; }
         public Nullable<int> Position { get; set; }
+        public string UserName { get; set; }
+        public string TrueName { get; set; }
+        public string IDCardNo { get; set; }
+        public string TelePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public Nullable<System.DateTime> JoinDate { get; set; }
+        public string CreatorID { get; set; }
+        public string QQ { get; set; }
+        public string Email { get; set; }
+        public string Wechat { get; set; }
+        public string Address { get; set; }
     
     }
 }

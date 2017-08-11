@@ -79,6 +79,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="SysModule.cs">
+      <DependentUpon>ZeroCodeDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="SysSample.cs">
       <DependentUpon>ZeroCodeDB.tt</DependentUpon>
     </Compile>

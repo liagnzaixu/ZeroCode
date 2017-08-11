@@ -55,6 +55,10 @@
       <Project>{f30a8995-cc2b-4527-a0f3-9e58f9f7ee13}</Project>
       <Name>ZeroCode.CommonData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZeroCode.Model.Core\ZeroCode.Model.Core.csproj">
+      <Project>{a489f280-1199-492e-8ac6-ee095999cfb6}</Project>
+      <Name>ZeroCode.Model.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZeroCode.Model.Sys\ZeroCode.Model.Sys.csproj">
       <Project>{fb1ce9f6-3a7f-4baa-83eb-31c6e79d432c}</Project>
       <Name>ZeroCode.Model.Sys</Name>

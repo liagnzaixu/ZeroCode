@@ -7,6 +7,8 @@
       <Diagram DiagramId="4e2ddc91420543f5b3002f37bbc4bf9f" Name="Diagram1">
         <EntityTypeShape EntityType="ZeroCode.Repository.Model.SysSample" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ZeroCode.Repository.Model.User" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ZeroCode.Repository.Model.SysModule" Width="1.5" PointX="5.375" PointY="0.75" />
+        <AssociationConnector Association="ZeroCode.Repository.Model.FK_SysModule_SysModule" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

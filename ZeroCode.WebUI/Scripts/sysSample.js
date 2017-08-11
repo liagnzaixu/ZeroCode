@@ -2,8 +2,9 @@
 
     var tool = {
         closeModalWindow: function () {
-            $(tempObj.selector.modal_window).window('close');
             window.frames[tempObj.selector.modalFrame].location.replace('about:blank');
+            $(tempObj.selector.modal_window).window('close');
+            
         },
         reloadDatagrid: function (reload) {
             $(tempObj.selector.list).datagrid(reload ? 'reload' : 'load');
@@ -47,8 +48,15 @@
                         { field: 'Note', title: '说明', width: 60, align: 'center' },
                         { field: 'CreateTime', title: '创建时间', width: 60, align: 'center' }
                     ]
-                ]
+                ],
+                onDblClickRow: function (rowIndex, rowData) {
+                    tempObj.registerEle.click_detail();
+                },
             });
+            $(window).resize(function () {
+                $(tempObj.selector.list).datagrid('resize', { width: $(window).width(), height: $(window).height() - 50});
+            });
+            $(tempObj.selector.modalWindow).window({ onClose: tool.closeModalWindow });
 
             $(tempObj.selector.btnAdd).click(tempObj.registerEle.click_add);
             $(tempObj.selector.btnEdit).click(tempObj.registerEle.click_edit);
@@ -127,6 +135,7 @@
                         if (data != undefined && data.Status == "Success") {
                             tool.reloadDatagrid(true);
                             tool.showMsgBottomRight('操作成功');
+                            $(tempObj.selector.list).datagrid('unselectRow');
                         } else {
                             tool.showMsgBottomRight('请求发生异常');
                         }

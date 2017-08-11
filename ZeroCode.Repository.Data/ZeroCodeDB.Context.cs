@@ -22,7 +22,7 @@ namespace ZeroCode.Repository.Data
     public partial class DbContextDemo : DbContextBase
     {
         public DbContextDemo()
-            : base("name=EFConnectionStr")
+            : base("name=Entities")
         {
         }
     
@@ -35,5 +35,6 @@ namespace ZeroCode.Repository.Data
     
         public virtual DbSet<SysSample> SysSample { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<SysModule> SysModule { get; set; }
     }
 }

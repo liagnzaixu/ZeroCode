@@ -2,6 +2,7 @@
 using ZeroCode.CommonData;
 using ZeroCode.CommonData.Filter;
 using ZeroCode.Model.Sys;
+using ZeroCode.Model.Core;
 
 namespace ZeroCode.Service.Sys
 {
@@ -20,6 +21,8 @@ namespace ZeroCode.Service.Sys
         OperationResult Update(SysSampleDto model);
 
         OperationResult<SysSampleDto> GetDetail(string id);
+
+        OperationResult<List<SysModuleDto>> GetModuleTree();
     }
 
 }

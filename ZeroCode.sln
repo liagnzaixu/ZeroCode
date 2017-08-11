@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroCode.WebUI", "ZeroCode.WebUI\ZeroCode.WebUI.csproj", "{CA04B44B-8350-4A19-9C79-D2F34FC7791F}"
 EndProject
@@ -41,6 +41,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroCode.Service.Account", "ZeroCode.Service.Account\ZeroCode.Service.Account.csproj", "{B6E972F0-52FC-4900-A7EF-521036DFE70D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroCode.Repository.Account", "ZeroCode.Repository.Account\ZeroCode.Repository.Account.csproj", "{F0EC6392-0D8B-4D29-9883-4A643A952C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroCode.Model.Core", "ZeroCode.Model.Core\ZeroCode.Model.Core.csproj", "{A489F280-1199-492E-8AC6-EE095999CFB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +98,10 @@ Global
 		{F0EC6392-0D8B-4D29-9883-4A643A952C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0EC6392-0D8B-4D29-9883-4A643A952C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0EC6392-0D8B-4D29-9883-4A643A952C76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A489F280-1199-492E-8AC6-EE095999CFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A489F280-1199-492E-8AC6-EE095999CFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A489F280-1199-492E-8AC6-EE095999CFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A489F280-1199-492E-8AC6-EE095999CFB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,5 +117,6 @@ Global
 		{CA32810A-B6C5-4A13-A7B0-41D1369391CA} = {B49FF95D-3236-4C63-98F4-DF19B3875E4A}
 		{B6E972F0-52FC-4900-A7EF-521036DFE70D} = {BE7CF90D-0D43-467C-BA8E-D2E417A9B01E}
 		{F0EC6392-0D8B-4D29-9883-4A643A952C76} = {2E3F4994-DB26-451D-B7EF-BF4E4D7CEFB1}
+		{A489F280-1199-492E-8AC6-EE095999CFB6} = {B49FF95D-3236-4C63-98F4-DF19B3875E4A}
 	EndGlobalSection
 EndGlobal

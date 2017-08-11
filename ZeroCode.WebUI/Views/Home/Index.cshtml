@@ -9,9 +9,11 @@
     <link href="~/Content/EasyUI/default/easyui.css" rel="stylesheet" />
     <link href="~/Content/EasyUI/default/layout.css" rel="stylesheet" />
     <link href="~/Content/Default/Css/frame.css" rel="stylesheet" />
-    
+    <link href="~/Content/tree/css/tree.css" rel="stylesheet" />
+
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/jquery.tree.js"></script>
     <script type="text/javascript">
         $(document).on('contextmenu', '.tabs li', function (e) {
             e.preventDefault();
@@ -22,6 +24,7 @@
         });
         $(function () {
             $('#sysFrame').attr('src', '@Url.Content("~/SysSample/Index")');
+
         })
     </script>
 </head>

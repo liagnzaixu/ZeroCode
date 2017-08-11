@@ -12,12 +12,14 @@ using ZeroCode.CommonData;
 using ZeroCode.Repository.Data.Extensions;
 using Microsoft.Practices.Unity;
 using ZeroCode.Utility.Extensions;
+using ZeroCode.Model.Core;
 
 namespace ZeroCode.Service.Sys
 {
     public class SysSampleService:ISysSampleService
     {
         public IBaseRepository<SysSample, string> SysRep;
+        public IBaseRepository<SysModule, string> ModuleRep;
         public SysSampleService(IBaseRepository<SysSample,string> sysRep)
         {
             if (sysRep == null) throw new ArgumentNullException("");
@@ -83,6 +85,25 @@ namespace ZeroCode.Service.Sys
                 
             }
             return new OperationResult<SysSampleDto>(OperationResultType.Success, null, dto);
+        }
+
+        public OperationResult<List<SysModuleDto>> GetModuleTree()
+        {
+            try
+            { 
+                List<SysModule> entityList= ModuleRep.Entities.Where(m => m.Id != "0").Distinct().OrderBy(a=>a.Sort).ToList();
+                if(entityList.Count==0)
+                {
+                    return new OperationResult<List<SysModuleDto>>(OperationResultType.QueryNull);
+                }
+
+                List<SysModuleDto> dtoList = Mapper.Map<List<SysModuleDto>>(entityList);
+                return new OperationResult<List<SysModuleDto>>(OperationResultType.Success, null, dtoList);
+            }
+            catch(Exception ex)
+            {
+                return new OperationResult<List<SysModuleDto>>(OperationResultType.Error);
+            }
         }
     }
 }
