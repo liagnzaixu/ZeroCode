@@ -61,7 +61,7 @@ using System.Linq;
 <#=Accessibility.ForType(container)#> partial class DbContextDemo : DbContextBase
 {
     public DbContextDemo()
-        : base("name=<#=container.Name#>")
+        : base("name=EFConnectionStr")
     {
 <#
 if (!loader.IsLazyLoadingEnabled(container))

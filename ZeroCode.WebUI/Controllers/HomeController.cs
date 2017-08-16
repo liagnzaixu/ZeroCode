@@ -31,9 +31,29 @@ namespace ZeroCode.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetTree()
+        public JsonResult GetTree(string moduleId)
         {
-            OperationResult<List<SysModuleDto>> op = _sysService.GetModuleTree();
+            OperationResult<List<SysModuleTreeDto>> op = _sysService.GetModuleTree(moduleId);
+            //if(op.Successed)
+            //{
+            //    var jsonData = (
+            //        from m in op.Data
+            //        select new
+            //        {
+            //            id = m.Id,
+            //            text = m.Name,
+            //            value = m.Id,
+            //            showcheck = false,
+            //            complete = false,
+            //            isexpand = false,
+            //            checkstate = 0,
+            //            hasChildren = m.IsLast ? false : true,
+            //            Icon = m.Iconic
+            //        }).ToArray();
+
+            //    AjaxResult result = new AjaxResult(AjaxResultType.Success, "success", jsonData);
+            //    return Json(result);
+            //}
             return Json(op.ToAjaxResult());
         }
     }

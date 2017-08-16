@@ -17,7 +17,6 @@ namespace ZeroCode.Repository.Data
     public partial class User:IEntity<string>
     {
         public string Id { get; set; }
-        public string Name { get; set; }
         public int Age { get; set; }
         public string Gander { get; set; }
         public Nullable<int> Position { get; set; }

@@ -106,7 +106,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Age" Type="Int32" Nullable="false" />
           <Property Name="Gander" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="Position" Type="Int32" />

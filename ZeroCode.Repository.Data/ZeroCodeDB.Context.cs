@@ -22,7 +22,7 @@ namespace ZeroCode.Repository.Data
     public partial class DbContextDemo : DbContextBase
     {
         public DbContextDemo()
-            : base("name=Entities")
+            : base("name=EFConnectionStr")
         {
         }
     

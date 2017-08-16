@@ -20,10 +20,11 @@ namespace ZeroCode.Service.Sys
     {
         public IBaseRepository<SysSample, string> SysRep;
         public IBaseRepository<SysModule, string> ModuleRep;
-        public SysSampleService(IBaseRepository<SysSample,string> sysRep)
+        public SysSampleService(IBaseRepository<SysSample,string> sysRep, IBaseRepository<SysModule, string> moduleRep)
         {
-            if (sysRep == null) throw new ArgumentNullException("");
+            if (sysRep == null|| moduleRep == null) throw new ArgumentNullException("");
             SysRep = sysRep;
+            ModuleRep = moduleRep;
         }
 
         public List<SysSampleDto> GetAllSys()
@@ -87,23 +88,74 @@ namespace ZeroCode.Service.Sys
             return new OperationResult<SysSampleDto>(OperationResultType.Success, null, dto);
         }
 
-        public OperationResult<List<SysModuleDto>> GetModuleTree()
+        public OperationResult<List<SysModuleTreeDto>> GetModuleTree(string moduleId)
         {
             try
-            { 
-                List<SysModule> entityList= ModuleRep.Entities.Where(m => m.Id != "0").Distinct().OrderBy(a=>a.Sort).ToList();
-                if(entityList.Count==0)
+            {
+                List<SysModule> entityList= ModuleRep.Entities.Where(m => m.Id != "0" && m.ParentId==moduleId ).Distinct().OrderBy(a=>a.Sort).ToList();
+                //List<SysModule> entityList = GetSon(moduleId).ToList();//递归查询
+
+                if (entityList.Count==0)
                 {
-                    return new OperationResult<List<SysModuleDto>>(OperationResultType.QueryNull);
+                    return new OperationResult<List<SysModuleTreeDto>>(OperationResultType.QueryNull);
                 }
 
-                List<SysModuleDto> dtoList = Mapper.Map<List<SysModuleDto>>(entityList);
-                return new OperationResult<List<SysModuleDto>>(OperationResultType.Success, null, dtoList);
+
+                List<SysModuleTreeDto> tree = InitTree(entityList, moduleId);
+                //List<SysModuleDto> dtoList = Mapper.Map<List<SysModuleDto>>(entityList);
+                return new OperationResult<List<SysModuleTreeDto>>(OperationResultType.Success, null, tree);
             }
             catch(Exception ex)
             {
-                return new OperationResult<List<SysModuleDto>>(OperationResultType.Error);
+                return new OperationResult<List<SysModuleTreeDto>>(OperationResultType.Error);
             }
+        }
+
+        private IEnumerable<SysModule> GetSon(string parentId)
+        {
+            var query = ModuleRep.Entities.Where(m => m.Id != "0" && m.ParentId == parentId).Distinct().OrderBy(a => a.Sort);
+            return query.ToList().Concat(query.ToList().SelectMany(m => GetSon(m.Id)));
+        }
+
+        private List<SysModuleTreeDto> InitTree(List<SysModule> modules,string rootId)
+        {
+            List<SysModuleTreeDto> rootNodes = modules.Where(m => m.ParentId == rootId).Select(
+                m => new SysModuleTreeDto
+                {
+                    id = m.Id,
+                    text = m.Name,
+                    value=m.Url,
+                    complete = false,
+                    hasChildren = m.IsLast,
+                    showcheck = false,
+                    checkstate=0,
+                    isexpand=false,
+                    ChildNodes= CreateChildTree(modules, m.Id, m.IsLast)
+                }).ToList();
+
+            return rootNodes;
+        }
+
+        private List<SysModuleTreeDto> CreateChildTree(List<SysModule> modules, string parentId,bool isLast)
+        {
+            if(isLast)
+            {
+                return null;
+            }
+            List<SysModuleTreeDto> nodes = modules.Where(m => m.ParentId == parentId).Select(
+                m => new SysModuleTreeDto
+                {
+                    id = m.Id,
+                    text = m.Name,
+                    value = m.Url,
+                    complete = false,
+                    hasChildren = m.IsLast,
+                    showcheck = false,
+                    checkstate = 0,
+                    isexpand = false,
+                    ChildNodes = CreateChildTree(modules,m.Id, m.IsLast)
+                }).ToList();
+            return nodes;
         }
     }
 }
