@@ -24,6 +24,21 @@
         });
         $(function () {
             $('#sysFrame').attr('src', '@Url.Content("~/SysSample/Index")');
+
+            var obj = {
+                showcheck: false,
+                url: '@Url.Content("~/Home/GetTree")',
+                onnodeclick: function (item) {
+                    var tabTitle = item.text;
+                    var url = "../../" + item.value;
+                    var icon = item.Icon;
+                    if (!item.hasChildren) {
+                        addTab(tabTitle, url, icon);
+                    } else {
+                        $(this).parent().find("img").trigger("click");
+                    }
+                }
+            }
             $.ajax({
                 type:'POST',
                 url: '@Url.Content("~/Home/GetTree")',
@@ -31,11 +46,13 @@
                     moduleId: '0'
                 },
                 dataType:'json',
-                success:function(data,textStatus,jqXHR){
+                success: function (data, textStatus, jqXHR) {
+                    obj.data = data.Data;
+                    $("#menu_tree").treeview(obj);
                     console.info(data);
                 },
                 error:function(){
-                    
+
                 }
             });
         })

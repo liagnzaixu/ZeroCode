@@ -88,11 +88,11 @@ namespace ZeroCode.Service.Sys
             return new OperationResult<SysSampleDto>(OperationResultType.Success, null, dto);
         }
 
-        public OperationResult<List<SysModuleTreeDto>> GetModuleTree(string moduleId)
+        public OperationResult<List<SysModuleTreeDto>> GetModuleTree()
         {
             try
             {
-                List<SysModule> entityList= ModuleRep.Entities.Where(m => m.Id != "0" && m.ParentId==moduleId ).Distinct().OrderBy(a=>a.Sort).ToList();
+                List<SysModule> entityList= ModuleRep.Entities.Where(m => m.Id != "0").Distinct().OrderBy(a=>a.Sort).ToList();
                 //List<SysModule> entityList = GetSon(moduleId).ToList();//递归查询
 
                 if (entityList.Count==0)
@@ -101,7 +101,7 @@ namespace ZeroCode.Service.Sys
                 }
 
 
-                List<SysModuleTreeDto> tree = InitTree(entityList, moduleId);
+                List<SysModuleTreeDto> tree = InitTree(entityList, "0");
                 //List<SysModuleDto> dtoList = Mapper.Map<List<SysModuleDto>>(entityList);
                 return new OperationResult<List<SysModuleTreeDto>>(OperationResultType.Success, null, tree);
             }
@@ -126,11 +126,11 @@ namespace ZeroCode.Service.Sys
                     text = m.Name,
                     value=m.Url,
                     complete = false,
-                    hasChildren = m.IsLast,
+                    hasChildren = !m.IsLast,
                     showcheck = false,
                     checkstate=0,
-                    isexpand=false,
-                    ChildNodes= CreateChildTree(modules, m.Id, m.IsLast)
+                    isexpand= !m.IsLast,
+                    ChildNodes = CreateChildTree(modules, m.Id, m.IsLast)
                 }).ToList();
 
             return rootNodes;
@@ -149,10 +149,10 @@ namespace ZeroCode.Service.Sys
                     text = m.Name,
                     value = m.Url,
                     complete = false,
-                    hasChildren = m.IsLast,
+                    hasChildren = !m.IsLast,
                     showcheck = false,
                     checkstate = 0,
-                    isexpand = false,
+                    isexpand = !m.IsLast,
                     ChildNodes = CreateChildTree(modules,m.Id, m.IsLast)
                 }).ToList();
             return nodes;

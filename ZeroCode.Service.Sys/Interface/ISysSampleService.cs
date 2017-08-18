@@ -22,7 +22,7 @@ namespace ZeroCode.Service.Sys
 
         OperationResult<SysSampleDto> GetDetail(string id);
 
-        OperationResult<List<SysModuleTreeDto>> GetModuleTree(string moduleId);
+        OperationResult<List<SysModuleTreeDto>> GetModuleTree();
     }
 
 }
