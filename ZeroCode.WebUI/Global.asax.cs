@@ -14,6 +14,8 @@ namespace ZeroCode.WebUI
     {
         protected void Application_Start()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
+            RemoveWebFormEngines();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -22,6 +24,16 @@ namespace ZeroCode.WebUI
             UnityConfig.RegisterComponents();   //ioc注册
             Configuration.Configure();          //AutoMapper映射注册
 
+        }
+
+        private void RemoveWebFormEngines()
+        {
+            var viewEngines = ViewEngines.Engines;
+            var webFormEngines = viewEngines.OfType<WebFormViewEngine>().FirstOrDefault() ;
+            if(webFormEngines!=null)
+            {
+                viewEngines.Remove(webFormEngines);
+            }
         }
 
         //protected void Application_Error(Object sender, EventArgs e)
