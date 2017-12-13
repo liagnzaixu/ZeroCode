@@ -22,6 +22,7 @@
                 top: e.pageY - 5
             });
         });
+
         $(function () {
             $('#sysFrame').attr('src', '@Url.Content("~/SysSample/Index")');
 
@@ -39,6 +40,7 @@
                     }
                 }
             }
+
             $.ajax({
                 type:'POST',
                 url: '@Url.Content("~/Home/GetTree")',
