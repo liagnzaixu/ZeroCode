@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>索引页</title>
+    <style type="text/css">
+        body {
+            background-color: #F2F2F2;
+        }
+
+        .nav_wrap, .api_wrap {
+            width: 600px;
+            padding: 30px;
+            margin: 100px auto 0px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: solid 1px #ece3e3;
+        }
+
+        a {
+            font: 0.875em/1.5em "微软雅黑", "PTSans", "Arial",sans-serif;
+            text-decoration: none;
+            color: #006b99;
+            font-size: 18px;
+        }
+
+        .api_wrap {
+            width: 1000px;
+        }
+
+        .api_wrap span {
+            display: inline-block;
+            padding-right: 8px;
+            width: 110px;
+            text-align: right;
+        }
+
+        .api_wrap input {
+            width: 700px;
+        }
+
+        .api_btn {
+            width: 100%;
+            height: 30px;
+        }
+
+        .base_hide {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="nav_wrap">
+        <p><a href="@Url.Action("Index", "Home")">Home</a> </p>
+        <p><a href="@Url.Action("Index", "UploadDemo")">上传实例</a></p>
+        <p><a href="@Url.Action("Index", "Import")">导入导出</a></p>
+    </div>
+</body>
+</html>

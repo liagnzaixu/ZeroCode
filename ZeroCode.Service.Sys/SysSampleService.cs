@@ -20,6 +20,7 @@ namespace ZeroCode.Service.Sys
     {
         public IBaseRepository<SysSample, string> SysRep;
         public IBaseRepository<SysModule, string> ModuleRep;
+
         public SysSampleService(IBaseRepository<SysSample,string> sysRep, IBaseRepository<SysModule, string> moduleRep)
         {
             if (sysRep == null|| moduleRep == null) throw new ArgumentNullException("");
@@ -27,12 +28,15 @@ namespace ZeroCode.Service.Sys
             ModuleRep = moduleRep;
         }
 
+        #region 获取所有的Sys
         public List<SysSampleDto> GetAllSys()
         {
             List<SysSample> result = SysRep.Entities.ToList();
             return Mapper.Map<List<SysSampleDto>>(result);
         }
+        #endregion
 
+        #region 分页查询Sys
         public PageResult<SysSampleDto> GetSysToPage(GridRequest request)
         {
             request.AddDefaultSortCondition(new SortCondition("CreatedTime", ListSortDirection.Descending));
@@ -49,26 +53,34 @@ namespace ZeroCode.Service.Sys
                     CreateTime= (DateTime)(m.CreateTime),
                 });
         }
+        #endregion
 
+        #region 单条创建
         public OperationResult Create(SysSampleDto model)
         {
             model.CreateTime = DateTime.Now;
             int execResult= SysRep.Insert(Mapper.Map<SysSample>(model));
             return new OperationResult(execResult == 1 ? OperationResultType.Success:OperationResultType.NoChanged);
         }
+        #endregion
 
+        #region 多条创建
         public OperationResult Create(List<SysSampleDto> list)
         {
             return SysRep.Insert(list);
         }
+        #endregion
 
+        #region 按id删除
         public OperationResult Delete(string id)
         {
             if (id.IsNullOrEmpty()) throw new ArgumentNullException("id");
             int execResult= SysRep.DeleteDirect(id);
             return new OperationResult(execResult == 1 ? OperationResultType.Success : OperationResultType.QueryNull);
         }
+        #endregion
 
+        #region 按model删除
         public OperationResult Update(SysSampleDto model)
         {
             if (model==null) throw new ArgumentNullException("id");
@@ -76,7 +88,9 @@ namespace ZeroCode.Service.Sys
             int execResult = SysRep.UpdateDirect(model.Id, user => new SysSample { Name = entity.Name, Age=entity.Age, Bir= entity.Bir, Note= entity.Note, Photo= entity.Photo });
             return new OperationResult(execResult == 1 ? OperationResultType.Success : OperationResultType.Error);
         }
+        #endregion
 
+        #region 获取详情
         public OperationResult<SysSampleDto> GetDetail(string id)
         {
             SysSampleDto dto= Mapper.Map<SysSampleDto>(SysRep.GetByKey(id));
@@ -87,7 +101,9 @@ namespace ZeroCode.Service.Sys
             }
             return new OperationResult<SysSampleDto>(OperationResultType.Success, null, dto);
         }
+        #endregion
 
+        #region 获取菜单树
         public OperationResult<List<SysModuleTreeDto>> GetModuleTree()
         {
             try
@@ -157,5 +173,6 @@ namespace ZeroCode.Service.Sys
                 }).ToList();
             return nodes;
         }
+        #endregion
     }
 }
