@@ -8,16 +8,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Aries的Index</title>
+    <title>索引页</title>
     <style type="text/css">
         body {
             background-color: #F2F2F2;
         }
 
         .nav_wrap, .api_wrap {
-            width: 300px;
+            width: 600px;
             padding: 30px;
-            margin: 100px auto;
+            margin: 100px auto 0px;
             background-color: #fff;
             border-radius: 10px;
             border: solid 1px #ece3e3;
@@ -29,33 +29,38 @@
             color: #006b99;
             font-size: 18px;
         }
-    </style>
-    <script>
-        window.onload = function () {
-            var minusNum = -1;
-            var zero = 0;
-            var one = 1;
-            var stringEmpty = '';
-            var stringNotEmpty = '111';
-            var objFunc = function () { };
 
-            console.group("JS中特殊值与bool的转换");
-            undefined ? console.info("undefined is true") : console.info("undefined is false");
-            null ? console.info("null is true") : console.info("null is false");
-            minusNum ? console.info("负数 is true") : console.info("负数 is false");
-            zero ? console.info("zero（数字0） is true") : console.info("zero（数字0） is false");
-            stringNotEmpty ? console.info("stringNotEmpty is true") : console.info("stringNotEmpty is false");
-            stringEmpty ? console.info("stringEmpty is true") : console.info("stringEmpty is false");
-            objFunc ? console.info("objFunc is true") : console.info("objFunc is false");
-            NaN ? console.info("NaN is true") : console.info("NaN is false");
-            console.groupEnd();
-    </script>
+        .api_wrap {
+            width: 1000px;
+        }
+
+            .api_wrap span {
+                display: inline-block;
+                padding-right: 8px;
+                width: 110px;
+                text-align: right;
+            }
+
+            .api_wrap input {
+                width: 700px;
+            }
+
+        .api_btn {
+            width: 100%;
+            height: 30px;
+        }
+
+        .base_hide {
+            display: none;
+        }
+    </style>
+
 </head>
 <body>
-
     <div class="nav_wrap">
-        <p><a href="Index.aspx">主内容区</a></p>
-        <p><a href="@Url.Action("Index","UploadDemo")">upload demo</a></p>
+        <p><a href="@Url.Action("Index", "Home")">Home</a> </p>
+        <p><a href="@Url.Action("Index", "UploadDemo")">上传实例</a></p>
+        <p><a href="@Url.Action("Index", "Import")">导入导出</a></p>
     </div>
 </body>
 </html>
