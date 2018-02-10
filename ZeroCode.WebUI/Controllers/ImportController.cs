@@ -8,6 +8,7 @@ using ClosedXML;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using ZeroCode.Web.MVC;
 
 namespace ZeroCode.WebUI.Controllers
 {
@@ -76,6 +77,7 @@ namespace ZeroCode.WebUI.Controllers
             rngTable.FirstCell().Style.Font.SetBold()
                 .Fill.SetBackgroundColor(XLColor.Buff)
                 .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+            header.FirstRow().Merge();
 
             header = rngTable.Range("A2:F2");
             header.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -90,75 +92,29 @@ namespace ZeroCode.WebUI.Controllers
 
 
             rngTable = ws.Range("A5:F" + (model.stuList.Count() + 5));
-            //var excelTable = rngTable.CreateTable();
+            var excelTable = rngTable.CreateTable();
             ws.Columns().AdjustToContents();
 
             string fileName = Guid.NewGuid().ToString()+".xlsx";
 
-            //using (FileStream fsWrite = new FileStream(Server.MapPath(string.Format("~/Upload/{0}.xlsx", fileName)), FileMode.Create,FileAccess.ReadWrite))
-            //{
-            //    wb.SaveAs(fsWrite);
+            using (FileStream fsWrite = new FileStream(Server.MapPath(string.Format("~/Upload/{0}.xlsx", fileName)), FileMode.Create, FileAccess.ReadWrite))
+            {
+                wb.SaveAs(fsWrite);
 
-            //}
-            HttpContext.Response.Clear();
+            }
             byte[] fileContents;
-            //using (FileStream fsRead = new FileStream(Server.MapPath(string.Format("~/Upload/{0}.xlsx", fileName)), FileMode.Open))
-            //{
-            //    int length = (int)fsRead.Length;
-            //    fileContents = new byte[length];
-            //    fsRead.Read(fileContents, 0, length);
-            //}
+            using (FileStream fsRead = new FileStream(Server.MapPath(string.Format("~/Upload/{0}.xlsx", fileName)), FileMode.Open))
+            {
+                int length = (int)fsRead.Length;
+                 fileContents = new byte[length];
+                fsRead.Read(fileContents, 0, length);
+            }
 
-            MemoryStream memoryStream = new MemoryStream();
+            //MemoryStream memoryStream = new MemoryStream();
+            //wb.SaveAs(memoryStream);
 
-            wb.SaveAs(memoryStream);
-            int length = (int)memoryStream.Length;
-            fileContents = new byte[length];
-            memoryStream.Read(fileContents, 0, length);
-           // memoryStream.WriteTo(HttpContext.Response.OutputStream);
-            
-            HttpContext.Response.ContentType =
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            memoryStream.Close();
-            HttpContext.Response.AddHeader(
-                "Content-Disposition",
-                string.Format("attachment;filename={0}", fileName));
-            Response.BinaryWrite(fileContents);
+            return new FileExcelResult(fileContents, "哇哈哈.xlsx");
 
-            return null;
-
-
-            return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
-
-            //HttpContext.Response.Clear();
-
-            //// 编码
-            //HttpContext.Response.ContentEncoding = Encoding.UTF8;
-
-            //// 设置网页ContentType
-            //HttpContext.Response.ContentType =
-            //    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
-            //// 导出名字
-            //var browser = HttpContext.Request.Browser.Browser;
-            //var exportFileName = browser.Equals("Firefox", StringComparison.OrdinalIgnoreCase)
-            //    ? fileName
-            //    : HttpUtility.UrlEncode(fileName, Encoding.UTF8);
-
-            //HttpContext.Response.AddHeader(
-            //    "Content-Disposition",
-            //    string.Format("attachment;filename={0}", exportFileName));
-
-
-            //Response.ContentEncoding = Encoding.UTF8;
-            //using (var memoryStream = new MemoryStream())
-            //{
-            //    wb.SaveAs(memoryStream);
-            //    memoryStream.WriteTo(HttpContext.Response.OutputStream);
-            //    memoryStream.Close();
-            //}
-
-            //return null;
         }
     }
 
